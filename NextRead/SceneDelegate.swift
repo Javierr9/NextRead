@@ -11,6 +11,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    var nextReadNavigationController: UINavigationController?
+    var bookLibraryNavigationController: UINavigationController?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -19,8 +21,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController(rootViewController: RootViewController())
-        window.rootViewController = navigationController
+        nextReadNavigationController = UINavigationController.init(rootViewController: RootViewController())
+        bookLibraryNavigationController = UINavigationController.init(rootViewController: BookLibraryViewController())
+        
+        let tabBarController = UITabBarController()
+        
+        nextReadNavigationController?.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 0)
+        bookLibraryNavigationController?.tabBarItem = UITabBarItem(title: "Book Library", image: UIImage(systemName: "books.vertical"), tag: 1)
+        
+        tabBarController.viewControllers = [nextReadNavigationController!, bookLibraryNavigationController!]
+        
+        window.rootViewController = tabBarController
         self.window = window
         window.makeKeyAndVisible()
     }

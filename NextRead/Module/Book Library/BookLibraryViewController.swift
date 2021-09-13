@@ -1,13 +1,13 @@
 //
-//  RootViewController.swift
+//  BookLibraryViewController.swift
 //  NextRead
 //
-//  Created by Javier Fransiscus on 11/09/21.
+//  Created by Javier Fransiscus on 12/09/21.
 //
 
 import UIKit
 
-class RootViewController: UIViewController {
+class BookLibraryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +28,12 @@ class RootViewController: UIViewController {
 
 }
 
-fileprivate extension RootViewController{
+fileprivate extension BookLibraryViewController{
     
     func setupNavigationTitle(){
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationBar.isHidden = false
-        self.title = "Next Read"
-    
+        title = "Book Library"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.isHidden = false
     }
     
 }
