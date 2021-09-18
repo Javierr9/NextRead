@@ -16,6 +16,12 @@ class BooksTableViewCell: UITableViewCell {
     
     static let identifier = "BooksTableViewCell"
     
+    var bookModel: BookDataModel?{
+        didSet{
+            setCellData()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -39,16 +45,17 @@ extension BooksTableViewCell{
     }
     
     
-    func setCellData(book: Book){
-        if let imageURL = URL(string: book.imageUrl){
-            bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "E-aEhlvVcAAtu-3-2"), options: []) { image, error, cacheType, url in
+    func setCellData(){
+        guard let book = bookModel else {return}
+        if let imageURL = URL(string: book.volumeInfo?.imageLinks?.smallThumbnail ?? ""){
+            bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
                 self.handle(image: image, error: error, cacheType: cacheType, url: url)
-                
+
             }
         }
-        bookTitleLabel.text = book.title
-        bookAuthorLabel.text = book.authors
-        
+        bookTitleLabel.text = book.volumeInfo?.title
+        bookAuthorLabel.text = book.volumeInfo?.authors.first ?? "None"
+
         
     }
     

@@ -11,16 +11,18 @@ class RootViewController: UIViewController {
     
     @IBOutlet weak var searchResultTableView: UITableView!
     
-    var books:[Book] = [Book(id: "1", title: "The Intelligent Investor", authors: "Benjamin Graham", desc: "This is the description just for example", imageUrl: "http://books.google.com/books/content?id=TFJfCc8Q9GUC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api", url: "")]
+    private let bookViewModel = BookViewModel()
+    private var arrayOfBooks:[BookDataModel] = []
+    
+    let searchController = UISearchController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationTitle()
-        setupTableView()
+        setupView()
         // Do any additional setup after loading the view.
     }
 
-
+    
     /*
     // MARK: - Navigation
 
@@ -48,20 +50,57 @@ fileprivate extension RootViewController{
         searchResultTableView.delegate = self
     }
     
+    func subscribeViewModel(){
+        bookViewModel.bindBookViewModelToController = {
+            self.bindData()
+        }
+    }
+    
+    func setupView(){
+        setupNavigationTitle()
+        setupTableView()
+        subscribeViewModel()
+        setupSearchController()
+    }
+    
+    func setupSearchController(){
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+    }
+    
+    func bindData(){
+        arrayOfBooks = bookViewModel.dataFromAPI?.data ?? []
+        DispatchQueue.main.async {
+            self.searchResultTableView.reloadData()
+        }
+        
+    }
+    
 }
 
-extension RootViewController: UITableViewDelegate, UITableViewDataSource{
+extension RootViewController: UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let query = searchController.searchBar.text else {return}
+        
+        bookViewModel.fetchDataWithQuery(query: query)
+        print(query)
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        books.count
+        return arrayOfBooks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BooksTableViewCell.identifier, for: indexPath) as! BooksTableViewCell
         
-        cell.setCellData(book: books[indexPath.row])
+        cell.bookModel = arrayOfBooks[indexPath.row]
         return cell
     }
     
     
+    
+    
 }
+
