@@ -59,29 +59,35 @@ extension BooksTableViewCell{
         
     }
     
-    func handle(image: UIImage?, error: Error?, cacheType: SDImageCacheType, url: URL?){
-        
-        if let error = error{
-            print("This is the error \(error.localizedDescription)")
-            return
-        }
-        
-        guard let image = image, let url = url else {return}
-        
-        let message = """
-        Image Size
-        \(image.size)
-        
-        Cache:
-        \(cacheType.rawValue)
-        
-        URL:
-        \(url)
 
-        """
-        
-        print(message)
-    }
     
+    
+}
+
+fileprivate extension BooksTableViewCell{
+    
+    func handle(image: UIImage?, error: Error?, cacheType: SDImageCacheType, url: URL?){
+       
+       if let error = error{
+           print("This is the error \(error.localizedDescription)")
+           return
+       }
+       
+       guard let image = image, let url = url else {return}
+       
+       let message = """
+       Image Size
+       \(image.size)
+       
+       Cache:
+       \(cacheType.rawValue)
+       
+       URL:
+       \(url)
+
+       """
+       
+       print(message)
+   }
     
 }

@@ -14,7 +14,7 @@ class RootViewController: UIViewController {
     private let bookViewModel = BookViewModel()
     private var arrayOfBooks:[BookDataModel] = []
     
-    let searchController = UISearchController()
+    private let searchController = UISearchController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +84,6 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource, UISear
         guard let query = searchController.searchBar.text else {return}
         
         bookViewModel.fetchDataWithQuery(query: query)
-        print(query)
     }
     
     

@@ -9,9 +9,16 @@ import UIKit
 
 class BookLibraryViewController: UIViewController {
 
+    @IBOutlet weak var bookCollectionView: UICollectionView!
+    
+    private let bookViewModel = BookViewModel()
+    private var arrayOfBooks:[BookDataModel] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupNavigationTitle()
+        setupCollectionView()
         // Do any additional setup after loading the view.
     }
 
@@ -35,5 +42,23 @@ fileprivate extension BookLibraryViewController{
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.isHidden = false
     }
+    
+    func setupCollectionView(){
+        bookCollectionView.register(BooksCollectionViewCell.getNib(), forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
+        bookCollectionView.delegate = self
+        bookCollectionView.delegate = self
+    }
+    
+}
+
+extension BookLibraryViewController: UICollectionViewDataSource, UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        <#code#>
+    }
+    
     
 }
