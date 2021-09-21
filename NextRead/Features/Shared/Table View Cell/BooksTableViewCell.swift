@@ -54,7 +54,7 @@ extension BooksTableViewCell{
             }
         }
         bookTitleLabel.text = book.volumeInfo?.title
-        bookAuthorLabel.text = book.volumeInfo?.authors.first ?? "None"
+        bookAuthorLabel.text = book.volumeInfo?.authors?.first ?? "None"
 
         
     }

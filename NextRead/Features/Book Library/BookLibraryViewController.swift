@@ -44,21 +44,21 @@ fileprivate extension BookLibraryViewController{
     }
     
     func setupCollectionView(){
-        bookCollectionView.register(BooksCollectionViewCell.getNib(), forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
-        bookCollectionView.delegate = self
-        bookCollectionView.delegate = self
+//        bookCollectionView.register(BooksCollectionViewCell.getNib(), forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
+//        bookCollectionView.delegate = self
+//        bookCollectionView.delegate = self
     }
     
 }
 
-extension BookLibraryViewController: UICollectionViewDataSource, UICollectionViewDelegate{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
-    }
-    
-    
-}
+//extension BookLibraryViewController: UICollectionViewDataSource, UICollectionViewDelegate{
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        <#code#>
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        <#code#>
+//    }
+//
+//
+//}
