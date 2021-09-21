@@ -80,6 +80,7 @@ fileprivate extension RootViewController{
 }
 
 extension RootViewController: UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating{
+    
     func updateSearchResults(for searchController: UISearchController) {
         guard let query = searchController.searchBar.text else {return}
         
@@ -99,7 +100,12 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource, UISear
     }
     
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = BookDetailViewController()
+        viewController.bookDetail = arrayOfBooks[indexPath.row]
+        self.navigationController?.pushViewController(viewController, animated: true)
+            
+    }
     
 }
 

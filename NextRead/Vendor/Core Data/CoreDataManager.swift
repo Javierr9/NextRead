@@ -88,7 +88,7 @@ extension CoreDataManager{
         let book = Book(context: managedObjectContext)
         book.id = model.id
         book.title = model.volumeInfo?.title
-        book.author = model.volumeInfo?.authors
+        book.author = model.volumeInfo?.authors?.first
         book.desc = model.volumeInfo?.description
         book.isFavorite = true
         book.smallThumbnail = model.volumeInfo?.imageLinks?.smallThumbnail

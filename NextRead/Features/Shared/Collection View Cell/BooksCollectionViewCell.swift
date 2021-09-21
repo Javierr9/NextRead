@@ -15,7 +15,7 @@ class BooksCollectionViewCell: UICollectionViewCell {
     
     static var identifier = "BooksCollectionViewCell"
     
-    var bookModel: BookDataModel?{
+    var book: Book?{
         didSet{
             setCellData()
         }
@@ -35,14 +35,14 @@ extension BooksCollectionViewCell{
     }
     
     func setCellData(){
-        guard let book = bookModel else {return}
-        if let imageURL = URL(string: book.volumeInfo?.imageLinks?.smallThumbnail ?? ""){
+        guard let book = self.book else {return}
+        if let imageURL = URL(string: book.thumbnail ?? ""){
             bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
                 self.handle(image: image, error: error, cacheType: cacheType, url: url)
 
             }
         }
-        titleLabel.text = book.volumeInfo?.title
+        titleLabel.text = book.title
        
 
         
