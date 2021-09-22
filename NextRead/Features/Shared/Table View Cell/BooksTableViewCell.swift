@@ -55,7 +55,7 @@ extension BooksTableViewCell{
         guard let book = bookModel else {return}
         if let imageURL = URL(string: book.volumeInfo?.imageLinks?.smallThumbnail ?? ""){
             bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
-                self.handle(image: image, error: error, cacheType: cacheType, url: url)
+//                self.handle(image: image, error: error, cacheType: cacheType, url: url)
 
             }
         }
@@ -72,35 +72,35 @@ extension BooksTableViewCell{
 
 fileprivate extension BooksTableViewCell{
     
-    func handle(image: UIImage?, error: Error?, cacheType: SDImageCacheType, url: URL?){
-       
-       if let error = error{
-           print("This is the error \(error.localizedDescription)")
-           return
-       }
-       
-       guard let image = image, let url = url else {return}
-       
-       let message = """
-       Image Size
-       \(image.size)
-       
-       Cache:
-       \(cacheType.rawValue)
-       
-       URL:
-       \(url)
-
-       """
-       
-       print(message)
-   }
+//    func handle(image: UIImage?, error: Error?, cacheType: SDImageCacheType, url: URL?){
+//
+//       if let error = error{
+//           print("This is the error \(error.localizedDescription)")
+//           return
+//       }
+//
+//       guard let image = image, let url = url else {return}
+//
+//       let message = """
+//       Image Size
+//       \(image.size)
+//
+//       Cache:
+//       \(cacheType.rawValue)
+//
+//       URL:
+//       \(url)
+//
+//       """
+//
+//       print(message)
+//   }
     
     func setCellDataBooks(){
         guard let book = self.book else {return}
         if let imageURL = URL(string: book.smallThumbnail ?? ""){
             bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
-                self.handle(image: image, error: error, cacheType: cacheType, url: url)
+//                self.handle(image: image, error: error, cacheType: cacheType, url: url)
 
             }
         }

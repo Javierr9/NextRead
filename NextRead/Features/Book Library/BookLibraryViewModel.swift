@@ -31,8 +31,10 @@ class BookLibraryViewModel: NSObject{
         setOfBooks = coreDataManager.fetchFavorite()
     }
     
-    func addToFavorites(bookModel: BookDataModel){
-        coreDataManager?.addFavorite(using: bookModel)
+    func addToFavorites(bookModel: BookDataModel, changeMessage: ()-> Void){
+        coreDataManager?.addFavorite(using: bookModel){
+            changeMessage()
+        }
         getFavoritedBooks()
         
     }

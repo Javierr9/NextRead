@@ -82,26 +82,100 @@ extension CoreDataManager{
         
     }
     
-    func addFavorite(using model: BookDataModel){
+    func addFavorite(using model: BookDataModel, changeMessage: ()-> Void){
         //TODO: Validate if the books is not already in here
         //Idea is get book by model id if entry null then add book
-        let book = Book(context: managedObjectContext)
-        book.id = model.id
-        book.title = model.volumeInfo?.title
-        book.author = model.volumeInfo?.authors?.first
-        book.desc = model.volumeInfo?.description
-        book.isFavorite = true
-        book.smallThumbnail = model.volumeInfo?.imageLinks?.smallThumbnail
-        book.thumbnail = model.volumeInfo?.imageLinks?.thumbnail
-        //book.isRecent = true sih harusnya
-        
-        do{
-            try managedObjectContext.save()
-        }catch{
-            print("\(error.localizedDescription)")
-            fatalError()
+        if !checkBookExist(model: model){
+            //Filter if book dont have then add
+            let book = Book(context: managedObjectContext)
+            book.id = model.id
+            book.title = model.volumeInfo?.title
+            book.author = model.volumeInfo?.authors?.first
+            book.desc = model.volumeInfo?.description
+            book.isFavorite = true
+            book.smallThumbnail = model.volumeInfo?.imageLinks?.smallThumbnail
+            book.thumbnail = model.volumeInfo?.imageLinks?.thumbnail
+            //book.isRecent = true sih harusnya
+            do{
+                try managedObjectContext.save()
+            }catch{
+                print("\(error.localizedDescription)")
+                fatalError()
+            }
+            
+        }else{
+            changeMessage()
         }
         
+        
+        
+    }
+    
+    func checkBookExist(model: BookDataModel) -> Bool{
+        var book:[Book]? = []
+        //Check dulu itu kosong apa engga
+        do{
+            let request = Book.fetchRequest() as NSFetchRequest<Book>
+            book = try managedObjectContext.fetch(request)
+       
+            
+        }catch{
+            print(error.localizedDescription)
+            fatalError()
+        }
+        if book?.count == 0 {
+            print("storage is empty book is non existo")
+            return false
+        }else{
+            do{
+                
+                if let id = model.id{
+                    let predicate = NSPredicate(format: "id == %@", id)
+                    let request = Book.fetchRequest() as NSFetchRequest<Book>
+                    request.predicate = predicate
+                    book = try managedObjectContext.fetch(request)
+                    if book?.count == 0{
+                        print("book is non existo by query but there are other books")
+                        return false
+                    }else{
+                        print("book is existo by query")
+                        return true
+                    }
+          
+                }
+            }catch{
+                print(error.localizedDescription)
+                fatalError()
+            }
+            return false
+        }
+
+        //        if let id = model.id{
+        //            print("this is the id of the model \(id)")
+        //            do{
+        //                let request = Book.fetchRequest() as NSFetchRequest<Book>
+        //                let predicate = NSPredicate(format: "id = %s", id)
+        //                request.predicate = predicate
+        //                let book =  try managedObjectContext.fetch(request)
+        //                print("thi is the \(book)")
+        //                if book.isEmpty {
+        //                    print("book non existo")
+        //                    return false
+        //
+        //                }
+        //                print("book existo")
+        //                return true
+        //
+        //            }catch{
+        //                print("\(error.localizedDescription)")
+        //                fatalError()
+        //            }
+        //
+        //        }else{
+        //            return false
+        //        }
+        //
+        //        return true
     }
     
     func deleteFavorite(using bookObject: Book){
