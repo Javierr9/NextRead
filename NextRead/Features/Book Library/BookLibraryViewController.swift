@@ -64,6 +64,7 @@ class BookLibraryViewController: UIViewController {
         arrayOfBooks = bookLibraryViewModel.setOfBooks ?? []
         DispatchQueue.main.async {
             self.bookCollectionView.reloadData()
+            self.booksTableView.reloadData()
         }
     }
     
@@ -104,9 +105,18 @@ extension BookLibraryViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BooksTableViewCell.identifier, for: indexPath) as! BooksTableViewCell
         
-        cell.bookModel = BookDataModel(id: arrayOfBooks[indexPath.row].id , volumeInfo: VolumeInfo(title: arrayOfBooks[indexPath.row].title, description: arrayOfBooks[indexPath.row].description, authors: ["asdf"], imageLinks: ImageLinks(smallThumbnail: arrayOfBooks[indexPath.row].smallThumbnail, thumbnail: arrayOfBooks[indexPath.row].thumbnail)))
+        cell.book = arrayOfBooks[indexPath.row]
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let action = UIContextualAction(style: .destructive, title: "Delete") { contextualAction, view, completionHandler in
+            let bookToRemove = self.arrayOfBooks[indexPath.row]
+            self.bookLibraryViewModel.deleteBookFromFavorite(book: bookToRemove)
+        }
+        return UISwipeActionsConfiguration(actions: [action])
     }
     
 }

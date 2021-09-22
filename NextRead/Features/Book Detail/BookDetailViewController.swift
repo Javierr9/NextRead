@@ -58,16 +58,63 @@ extension BookDetailViewController{
     
     func setupNavigationMenu(){
         title = "Detail"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         navigationController?.navigationBar.prefersLargeTitles = false
+        let infoButton = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(apiDetail))
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItems = [addButton, infoButton]
+        
         
     }
     
     @objc
-    func addTapped(){
+    func apiDetail(){
+        
         guard let book = bookDetail else {return}
+        
+        let message = """
+       
+        id = \(book.id)
+
+        small thumbnail : \(book.volumeInfo?.imageLinks?.smallThumbnail)
+
+        thumbnail : \(book.volumeInfo?.imageLinks?.thumbnail)
+
+        authors = \(book.volumeInfo?.authors)
+
+        description = \(book.volumeInfo?.description)
+
+"""
+        let alert = UIAlertController(title: "Book Api Info", message: message, preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: .cancel) { alertAction in
+            
+        }
+        alert.addAction(dismiss)
+        self.present(alert, animated: true) {
+            
+        }
+    }
+    
+    @objc
+    func addTapped(){
+        
+        guard let book = bookDetail else {return}
+        
         bookLibraryViewModel?.addToFavorites(bookModel: book)
-        print("book is added")
+        
+        let message = """
+       
+      Book has been added to book library
+
+"""
+        let alert = UIAlertController(title: "Book is added", message: message, preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: .cancel) { alertAction in
+            
+        }
+        alert.addAction(dismiss)
+        self.present(alert, animated: true) {
+            
+        }
     }
     
     

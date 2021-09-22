@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 
 class BooksCollectionViewCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -25,7 +25,7 @@ class BooksCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
 }
 
 extension BooksCollectionViewCell{
@@ -39,12 +39,11 @@ extension BooksCollectionViewCell{
         if let imageURL = URL(string: book.thumbnail ?? ""){
             bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
                 self.handle(image: image, error: error, cacheType: cacheType, url: url)
-
+                
             }
         }
         titleLabel.text = book.title
-       
-
+        
         
     }
     
@@ -54,17 +53,16 @@ extension BooksCollectionViewCell{
 fileprivate extension BooksCollectionViewCell{
     
     
-    
     func handle(image: UIImage?, error: Error?, cacheType: SDImageCacheType, url: URL?){
-       
-       if let error = error{
-           print("This is the error \(error.localizedDescription)")
-           return
-       }
-       
-       guard let image = image, let url = url else {return}
-       
-       let message = """
+        
+        if let error = error{
+            print("This is the error \(error.localizedDescription)")
+            return
+        }
+        
+        guard let image = image, let url = url else {return}
+        
+        let message = """
        Image Size
        \(image.size)
        
@@ -73,10 +71,10 @@ fileprivate extension BooksCollectionViewCell{
        
        URL:
        \(url)
-
-       """
        
-       print(message)
-   }
+       """
+        
+        print(message)
+    }
     
 }

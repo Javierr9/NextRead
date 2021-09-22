@@ -22,6 +22,12 @@ class BooksTableViewCell: UITableViewCell {
         }
     }
     
+    var book: Book?{
+        didSet{
+            setCellDataBooks()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -90,4 +96,16 @@ fileprivate extension BooksTableViewCell{
        print(message)
    }
     
+    func setCellDataBooks(){
+        guard let book = self.book else {return}
+        if let imageURL = URL(string: book.smallThumbnail ?? ""){
+            bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
+                self.handle(image: image, error: error, cacheType: cacheType, url: url)
+
+            }
+        }
+        bookTitleLabel.text = book.title
+        bookAuthorLabel.text = book.author
+
+    }
 }

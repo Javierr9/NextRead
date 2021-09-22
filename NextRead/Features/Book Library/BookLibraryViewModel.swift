@@ -33,7 +33,12 @@ class BookLibraryViewModel: NSObject{
     
     func addToFavorites(bookModel: BookDataModel){
         coreDataManager?.addFavorite(using: bookModel)
-        setOfBooks = coreDataManager.fetchFavorite()
+        getFavoritedBooks()
         
+    }
+    
+    func deleteBookFromFavorite(book: Book){
+        coreDataManager?.deleteFavorite(using: book)
+        getFavoritedBooks()
     }
 }
