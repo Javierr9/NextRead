@@ -25,7 +25,7 @@ struct BookDataModel: Codable {
 struct VolumeInfo: Codable{
     
     let title, description: String?
-    let authors: [String?]
+    let authors: [String]?
     let imageLinks: ImageLinks?
     
 }
@@ -33,3 +33,5 @@ struct VolumeInfo: Codable{
 struct ImageLinks: Codable{
     let smallThumbnail, thumbnail: String?
 }
+
+

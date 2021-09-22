@@ -14,7 +14,7 @@ class RootViewController: UIViewController {
     private let bookViewModel = BookViewModel()
     private var arrayOfBooks:[BookDataModel] = []
     
-    let searchController = UISearchController()
+    private let searchController = UISearchController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,11 +80,11 @@ fileprivate extension RootViewController{
 }
 
 extension RootViewController: UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating{
+    
     func updateSearchResults(for searchController: UISearchController) {
         guard let query = searchController.searchBar.text else {return}
         
         bookViewModel.fetchDataWithQuery(query: query)
-        print(query)
     }
     
     
@@ -100,7 +100,12 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource, UISear
     }
     
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = BookDetailViewController()
+        viewController.bookDetail = arrayOfBooks[indexPath.row]
+        self.navigationController?.pushViewController(viewController, animated: true)
+            
+    }
     
 }
 
