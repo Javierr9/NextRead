@@ -8,6 +8,13 @@
 import UIKit
 import SDWebImage
 
+// MARK: - ENUM For Entry Point
+
+enum BookDetailViewControllerEntryPoint {
+    case bookLibrary
+    case bookSearch
+}
+
 class BookDetailViewController: UIViewController {
     
     @IBOutlet weak var bookImageView: UIImageView!
@@ -16,53 +23,87 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var bookDescription: UITextView!
     
     private var addButton: UIBarButtonItem?
+    private var bookDetailViewModel: BookDetailViewModel?
+    private var entryPoint: BookDetailViewControllerEntryPoint?
     
-    private var bookLibraryViewModel: BookLibraryViewModel?
+    init(entryPoint: BookDetailViewControllerEntryPoint){
+        super.init(nibName: "BookDetailViewController", bundle: nil)
+        self.entryPoint = entryPoint
+    }
     
-    var bookDetail:BookDataModel?
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
+    var book:Book?{
+        didSet{
+            entryPoint = .bookLibrary
+            presentController()
+            
+            
+        }
+    }
+    
+    var bookDetail:BookDataModel?{
+        didSet{
+            entryPoint = .bookSearch
+            presentController()
+            
+            
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        bookLibraryViewModel = BookLibraryViewModel()
+        bookDetailViewModel = BookDetailViewModel()
+        setupNavigation()
         presentController()
     }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 
 
-extension BookDetailViewController{
+fileprivate extension BookDetailViewController{
     
     func presentController(){
-        guard let book = bookDetail else {return}
-        //TODO: Check book exist if book already exist in that than change the navigation menu button to something else
         
-        setupNavigationMenu()
-        if let imageURL = URL(string: book.volumeInfo?.imageLinks?.smallThumbnail ?? ""){
-            bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
-                self.handle(image: image, error: error, cacheType: cacheType, url: url)
-                
+        
+        switch entryPoint{
+        case .bookLibrary  :
+            guard let book = self.book else {return}
+            setupNavigation()
+            // TODO: kenapa crash disini gambarnya mari kita cari tahu
+            if let imageURL = URL(string: book.thumbnail ?? ""){
+                bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
+                    self.handle(image: image, error: error, cacheType: cacheType, url: url)
+                    
+                }
             }
+            bookTitleLabel.text = book.title
+            bookAuthorLabel.text = book.author
+            bookDescription.text = book.description == "" ? book.description: "No description available"
+            
+        default :
+            guard let book = bookDetail else {return}
+            setupNavigation()
+            if let imageURL = URL(string: (book.volumeInfo?.imageLinks?.thumbnail ?? book.volumeInfo?.imageLinks?.smallThumbnail) ?? ""){
+                bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
+                    self.handle(image: image, error: error, cacheType: cacheType, url: url)
+                    
+                }
+            }
+            bookTitleLabel.text = book.volumeInfo?.title
+            bookAuthorLabel.text = book.volumeInfo?.authors?.first ?? "None"
+            bookDescription.text = book.volumeInfo?.description ?? "No description available"
         }
-        bookTitleLabel.text = book.volumeInfo?.title
-        bookAuthorLabel.text = book.volumeInfo?.authors?.first ?? "None"
-        bookDescription.text = book.volumeInfo?.description ?? "No description available"
-        
     }
     
-    func setupNavigationMenu(){
+    
+    
+    func setupNavigation(){
         title = "Detail"
-        navigationController?.navigationBar.prefersLargeTitles = false
+        //TODO: change the add to love and unlove aja gimana caranya ntar
+        navigationItem.largeTitleDisplayMode = .never
         let infoButton = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(apiDetail))
         
         addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addTapped))
@@ -73,22 +114,44 @@ extension BookDetailViewController{
     
     @objc
     func apiDetail(){
+        var message = """
+        """
+        switch entryPoint{
+        case .bookSearch:
+            guard let book = bookDetail else {return}
+            
+            message = """
+           
+            id = \(book.id)
+    
+            small thumbnail : \(book.volumeInfo?.imageLinks?.smallThumbnail)
+    
+            thumbnail : \(book.volumeInfo?.imageLinks?.thumbnail)
+    
+            authors = \(book.volumeInfo?.authors)
+    
+            description = \(book.volumeInfo?.description)
+    
+    """
+        default:
+            guard let book = book else {return}
+            
+            message = """
+           
+            id = \(book.id)
+    
+            small thumbnail : \(book.smallThumbnail)
+    
+            thumbnail : \(book.thumbnail)
+    
+            authors = \(book.author)
+    
+            description = \(book.desc)
+    
+    """
+        }
         
-        guard let book = bookDetail else {return}
         
-        let message = """
-       
-        id = \(book.id)
-
-        small thumbnail : \(book.volumeInfo?.imageLinks?.smallThumbnail)
-
-        thumbnail : \(book.volumeInfo?.imageLinks?.thumbnail)
-
-        authors = \(book.volumeInfo?.authors)
-
-        description = \(book.volumeInfo?.description)
-
-"""
         let alert = UIAlertController(title: "Book Api Info", message: message, preferredStyle: .alert)
         let dismiss = UIAlertAction(title: "Dismiss", style: .cancel) { alertAction in
             
@@ -101,7 +164,7 @@ extension BookDetailViewController{
     
     @objc
     func addTapped(){
-        
+        // TODO: Bikin love sama unlove terus bikin case add or delete tergantung 1 variable also change it to fit the entrypoint
         guard let book = bookDetail else {return}
         
         var title = "Book Is Added"
@@ -112,7 +175,7 @@ extension BookDetailViewController{
 
 """
         
-        bookLibraryViewModel?.addToFavorites(bookModel: book){
+        bookDetailViewModel?.addToFavorites(bookModel: book){
             
             title = "Book Exists"
             
