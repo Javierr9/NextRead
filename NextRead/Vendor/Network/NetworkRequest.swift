@@ -27,7 +27,6 @@ class NetworkRequest: NSObject {
         }.resume()
     }
     
-    //https://www.googleapis.com/books/v1/volumes?q= + query +'&langRestrict=en'
     
     func requestDataFromAPIWithQuery(query: String, completion: @escaping (BookModel)->()){
         URLSession.shared.dataTask(with: URL(string: "\(Constant.BASE_URL)\(query)&langRestrict=en")!) { data, response, error in

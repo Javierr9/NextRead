@@ -35,23 +35,10 @@ class BookDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var book:Book?{
-        didSet{
-            entryPoint = .bookLibrary
-            presentController()
-            
-            
-        }
-    }
+    var book:Book?
     
-    var bookDetail:BookDataModel?{
-        didSet{
-            entryPoint = .bookSearch
-            presentController()
-            
-            
-        }
-    }
+    var bookDetail:BookDataModel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         bookDetailViewModel = BookDetailViewModel()
@@ -66,35 +53,38 @@ class BookDetailViewController: UIViewController {
 fileprivate extension BookDetailViewController{
     
     func presentController(){
-        
-        
         switch entryPoint{
         case .bookLibrary  :
-            guard let book = self.book else {return}
+            guard let bookData = book else {return}
             setupNavigation()
-            // TODO: kenapa crash disini gambarnya mari kita cari tahu
-            if let imageURL = URL(string: book.thumbnail ?? ""){
-                bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
+            if let imageURL = URL(string: bookData.thumbnail ?? ""){
+                bookImageView.sd_setImage(with: imageURL, placeholderImage: UIImage(systemName: "BookCover"), options: []) { image, error, cacheType, url in
                     self.handle(image: image, error: error, cacheType: cacheType, url: url)
-                    
                 }
             }
-            bookTitleLabel.text = book.title
-            bookAuthorLabel.text = book.author
-            bookDescription.text = book.description == "" ? book.description: "No description available"
+            
+            bookTitleLabel.text = bookData.title
+            bookAuthorLabel.text = bookData.author ?? "Authors not available"
+            bookDescription.text = bookData.desc ?? "No description available"
             
         default :
-            guard let book = bookDetail else {return}
+            guard let bookDetail = bookDetail else {return}
             setupNavigation()
-            if let imageURL = URL(string: (book.volumeInfo?.imageLinks?.thumbnail ?? book.volumeInfo?.imageLinks?.smallThumbnail) ?? ""){
-                bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
-                    self.handle(image: image, error: error, cacheType: cacheType, url: url)
-                    
-                }
-            }
-            bookTitleLabel.text = book.volumeInfo?.title
-            bookAuthorLabel.text = book.volumeInfo?.authors?.first ?? "None"
-            bookDescription.text = book.volumeInfo?.description ?? "No description available"
+            //TODO: Check book exist if book already exist in that than change the navigation menu button to something else
+              
+              setupNavigation()
+            if let imageURL = URL(string: bookDetail.volumeInfo?.imageLinks?.thumbnail ?? ""){
+                  bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
+                      self.handle(image: image, error: error, cacheType: cacheType, url: url)
+
+                  }
+                  
+                  
+              }
+            bookTitleLabel.text = bookDetail.volumeInfo?.title
+            bookAuthorLabel.text = bookDetail.volumeInfo?.authors?.first ?? "Authors not available"
+            bookDescription.text = bookDetail.volumeInfo?.description ?? "No description available"
+            
         }
     }
     
@@ -131,6 +121,8 @@ fileprivate extension BookDetailViewController{
             authors = \(book.volumeInfo?.authors)
     
             description = \(book.volumeInfo?.description)
+            
+            url : \(book.selfLink)
     
     """
         default:
@@ -149,8 +141,9 @@ fileprivate extension BookDetailViewController{
             description = \(book.desc)
     
     """
+            
         }
-        
+        print(message)
         
         let alert = UIAlertController(title: "Book Api Info", message: message, preferredStyle: .alert)
         let dismiss = UIAlertAction(title: "Dismiss", style: .cancel) { alertAction in

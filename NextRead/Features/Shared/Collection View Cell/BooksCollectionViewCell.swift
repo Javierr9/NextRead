@@ -38,7 +38,7 @@ extension BooksCollectionViewCell{
         guard let book = self.book else {return}
         if let imageURL = URL(string: book.thumbnail ?? ""){
             bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
-//                self.handle(image: image, error: error, cacheType: cacheType, url: url)
+                self.handle(image: image, error: error, cacheType: cacheType, url: url)
                 
             }
         }
@@ -51,30 +51,29 @@ extension BooksCollectionViewCell{
 
 
 fileprivate extension BooksCollectionViewCell{
-    
-    
-//    func handle(image: UIImage?, error: Error?, cacheType: SDImageCacheType, url: URL?){
-//
-//        if let error = error{
-//            print("This is the error \(error.localizedDescription)")
-//            return
-//        }
-//
-//        guard let image = image, let url = url else {return}
-//
-//        let message = """
-//       Image Size
-//       \(image.size)
-//
-//       Cache:
-//       \(cacheType.rawValue)
-//
-//       URL:
-//       \(url)
-//
-//       """
-//
-//        print(message)
-//    }
+
+    func handle(image: UIImage?, error: Error?, cacheType: SDImageCacheType, url: URL?){
+
+        if let error = error{
+            print("This is the error \(error.localizedDescription)")
+            return
+        }
+
+        guard let image = image, let url = url else {return}
+
+        let message = """
+       Image Size
+       \(image.size)
+
+       Cache:
+       \(cacheType.rawValue)
+
+       URL:
+       \(url)
+
+       """
+
+        print(message)
+    }
     
 }
