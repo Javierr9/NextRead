@@ -31,7 +31,7 @@ class BookLibraryViewModel: NSObject{
     }
     
     func deleteBookFromFavorite(book: Book){
-        coreDataManager?.deleteFavorite(using: book)
+        coreDataManager?.deleteFavorite(byBook: book)
         getFavoritedBooks()
     }
 }

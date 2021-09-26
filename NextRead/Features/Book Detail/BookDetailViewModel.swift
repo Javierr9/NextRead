@@ -41,24 +41,30 @@ class BookDetailViewModel: NSObject{
     }
     
     
-    // TODO: Copy the function its using from the book view library model
+    //MARK: Get Favorited Books
     
     func getFavoritedBooks(){
-        
         setOfBooks = coreDataManager.fetchFavorite()
     }
     
     // MARK: Add to favorites
-    func addToFavorites(bookModel: BookDataModel, changeMessage: ()-> Void){
-        coreDataManager?.addFavorite(using: bookModel){
-            changeMessage()
-        }
+    func addToFavorites(bookModel: BookDataModel){
+        coreDataManager?.addFavorite(using: bookModel)
         getFavoritedBooks()
         
     }
-
-}
-
-fileprivate extension BookDetailViewModel{
     
+    func addToFavorites(book: Book){
+        coreDataManager.addFavorite(using: book)
+    }
+    
+    func checkBookExist(bookID: String) -> Bool {
+        return coreDataManager.checkBookExist(bookID: bookID)
+    }
+    // MARK: Delete from favorites
+    func removeBookFromFavorites(usingId id: String){
+        coreDataManager.deleteFavorite(byBookID: id)
+        getFavoritedBooks()
+    }
+
 }

@@ -73,7 +73,7 @@ fileprivate extension BooksCollectionViewCell{
 
        """
 
-        print(message)
+//        print(message)
     }
     
 }

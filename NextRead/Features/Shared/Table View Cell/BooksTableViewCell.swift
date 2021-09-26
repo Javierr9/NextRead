@@ -90,7 +90,7 @@ fileprivate extension BooksTableViewCell{
 
        """
 
-       print(message)
+//       print(message)
    }
     func setCellData(){
         var title = "", author = "", thumbnail = ""

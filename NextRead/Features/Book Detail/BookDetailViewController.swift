@@ -15,6 +15,11 @@ enum BookDetailViewControllerEntryPoint {
     case bookSearch
 }
 
+enum AddButtonStatus{
+    case like
+    case unlike
+}
+
 class BookDetailViewController: UIViewController {
     
     @IBOutlet weak var bookImageView: UIImageView!
@@ -22,9 +27,9 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var bookAuthorLabel: UILabel!
     @IBOutlet weak var bookDescription: UITextView!
     
-    private var addButton: UIBarButtonItem?
     private var bookDetailViewModel: BookDetailViewModel?
     private var entryPoint: BookDetailViewControllerEntryPoint?
+    private var addButtonStatus: AddButtonStatus?
     
     init(entryPoint: BookDetailViewControllerEntryPoint){
         super.init(nibName: "BookDetailViewController", bundle: nil)
@@ -36,14 +41,16 @@ class BookDetailViewController: UIViewController {
     }
     
     var book:Book?
-    
     var bookDetail:BookDataModel?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bookDetailViewModel = BookDetailViewModel()
-        setupNavigation()
         presentController()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigation()
     }
     
     
@@ -53,10 +60,10 @@ class BookDetailViewController: UIViewController {
 fileprivate extension BookDetailViewController{
     
     func presentController(){
+        setupNavigation()
         switch entryPoint{
         case .bookLibrary  :
             guard let bookData = book else {return}
-            setupNavigation()
             if let imageURL = URL(string: bookData.thumbnail ?? ""){
                 bookImageView.sd_setImage(with: imageURL, placeholderImage: UIImage(systemName: "BookCover"), options: []) { image, error, cacheType, url in
                     self.handle(image: image, error: error, cacheType: cacheType, url: url)
@@ -69,37 +76,73 @@ fileprivate extension BookDetailViewController{
             
         default :
             guard let bookDetail = bookDetail else {return}
-            setupNavigation()
             //TODO: Check book exist if book already exist in that than change the navigation menu button to something else
-              
-              setupNavigation()
             if let imageURL = URL(string: bookDetail.volumeInfo?.imageLinks?.thumbnail ?? ""){
-                  bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
-                      self.handle(image: image, error: error, cacheType: cacheType, url: url)
-
-                  }
-                  
-                  
-              }
+                bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
+                    self.handle(image: image, error: error, cacheType: cacheType, url: url)
+                    
+                }
+                
+                
+            }
             bookTitleLabel.text = bookDetail.volumeInfo?.title
             bookAuthorLabel.text = bookDetail.volumeInfo?.authors?.first ?? "Authors not available"
             bookDescription.text = bookDetail.volumeInfo?.description ?? "No description available"
             
         }
+        
     }
     
     
     
     func setupNavigation(){
         title = "Detail"
-        //TODO: change the add to love and unlove aja gimana caranya ntar
         navigationItem.largeTitleDisplayMode = .never
+        setupBarButtonItem()
+    }
+    
+    func setupBarButtonItem(){
+        //TODO: change the add to love and unlove aja gimana caranya ntar
         let infoButton = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(apiDetail))
+        let likeButton = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(addTapped))
+        let unlikeButton = UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"), style: .plain, target: self, action: #selector(addTapped))
         
-        addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addTapped))
-        navigationItem.rightBarButtonItems = [addButton!, infoButton]
+        guard let bookExist = bookDetailViewModel?.checkBookExist(bookID: getCurrentBookID()) else {return}
+        if bookExist{
+            addButtonStatus = .unlike
+        }else{
+            addButtonStatus = .like
+        }
         
-        
+        switch addButtonStatus{
+        case .like:
+            navigationItem.rightBarButtonItems = [likeButton, infoButton]
+        default:
+            navigationItem.rightBarButtonItems = [unlikeButton, infoButton]
+        }
+    }
+    
+    @objc
+    func addTapped(){
+        let id = getCurrentBookID()
+        switch addButtonStatus{
+        case .like:
+            switch entryPoint{
+            case .bookSearch:
+                guard let bookModel = bookDetail else {return}
+                bookDetailViewModel?.addToFavorites(bookModel: bookModel)
+            default:
+                guard let book = self.book else {return}
+                bookDetailViewModel?.addToFavorites(book: book)
+            }
+            
+            setupBarButtonItem()
+            
+        default:
+            bookDetailViewModel?.removeBookFromFavorites(usingId: id)
+            setupBarButtonItem()
+            
+        }
     }
     
     @objc
@@ -155,46 +198,20 @@ fileprivate extension BookDetailViewController{
         }
     }
     
-    @objc
-    func addTapped(){
-        // TODO: Bikin love sama unlove terus bikin case add or delete tergantung 1 variable also change it to fit the entrypoint
-        guard let book = bookDetail else {return}
-        
-        var title = "Book Is Added"
-        
-        var message = """
-       
-        Book has been added to book library
-
-"""
-        
-        bookDetailViewModel?.addToFavorites(bookModel: book){
-            
-            title = "Book Exists"
-            
-            message = """
-            Book is already exist in book library.
-       
-       """
+    func getCurrentBookID() -> String{
+        switch entryPoint{
+        case .bookSearch:
+            if let id = bookDetail?.id {
+                return id
+            }
+        default:
+            if let id  = book?.id{
+                return id
+            }
         }
-        
-        
-        
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let dismiss = UIAlertAction(title: "Dismiss", style: .cancel) { alertAction in
-            
-        }
-        alert.addAction(dismiss)
-        self.present(alert, animated: true) {
-            
-        }
+        return ""
     }
     
-    
-}
-
-fileprivate extension BookDetailViewController{
     func handle(image: UIImage?, error: Error?, cacheType: SDImageCacheType, url: URL?){
         
         if let error = error{
@@ -216,7 +233,8 @@ fileprivate extension BookDetailViewController{
        
        """
         
-        print(message)
+//        print(message)
     }
     
 }
+
