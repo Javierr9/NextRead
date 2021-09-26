@@ -21,23 +21,23 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BGj-ja-WFY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gM0-rz-34T">
-                                <rect key="frame" x="10" y="10" width="100" height="100"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gM0-rz-34T">
+                                <rect key="frame" x="10" y="10" width="66" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Dkd-YW-AFI"/>
-                                    <constraint firstAttribute="width" constant="100" id="zjf-HW-0O3"/>
+                                    <constraint firstAttribute="width" constant="66" id="zjf-HW-0O3"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpy-4a-shy">
-                                <rect key="frame" x="120" y="49.5" width="284" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpy-4a-shy">
+                                <rect key="frame" x="86" y="54" width="318" height="19"/>
+                                <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MY4-Nm-MQQ">
-                                <rect key="frame" x="120" y="72.5" width="284" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <nil key="textColor"/>
+                                <rect key="frame" x="86" y="75" width="318" height="16"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -47,9 +47,10 @@
                             <constraint firstItem="gM0-rz-34T" firstAttribute="centerY" secondItem="BGj-ja-WFY" secondAttribute="centerY" id="Q8G-Q6-8hQ"/>
                             <constraint firstItem="MY4-Nm-MQQ" firstAttribute="leading" secondItem="gM0-rz-34T" secondAttribute="trailing" constant="10" id="QL8-28-J3F"/>
                             <constraint firstItem="gM0-rz-34T" firstAttribute="leading" secondItem="BGj-ja-WFY" secondAttribute="leading" constant="10" id="Szu-DH-2KI"/>
-                            <constraint firstItem="MY4-Nm-MQQ" firstAttribute="top" secondItem="Qpy-4a-shy" secondAttribute="bottom" constant="2" id="aNh-yA-xbg"/>
-                            <constraint firstItem="Qpy-4a-shy" firstAttribute="centerY" secondItem="BGj-ja-WFY" secondAttribute="centerY" id="duP-5p-cjI"/>
                             <constraint firstItem="Qpy-4a-shy" firstAttribute="leading" secondItem="gM0-rz-34T" secondAttribute="trailing" constant="10" id="paA-1g-e60"/>
+                            <constraint firstItem="MY4-Nm-MQQ" firstAttribute="top" secondItem="Qpy-4a-shy" secondAttribute="bottom" constant="2" id="uS0-gn-MR7"/>
+                            <constraint firstItem="Qpy-4a-shy" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BGj-ja-WFY" secondAttribute="top" constant="10" id="vA8-CB-2Xu"/>
+                            <constraint firstAttribute="bottom" secondItem="MY4-Nm-MQQ" secondAttribute="bottom" constant="29" id="wfb-C0-EuN"/>
                             <constraint firstAttribute="trailing" secondItem="MY4-Nm-MQQ" secondAttribute="trailing" constant="10" id="xbH-f1-qU4"/>
                         </constraints>
                     </view>

@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
         
         nextReadNavigationController?.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 0)
-        bookLibraryNavigationController?.tabBarItem = UITabBarItem(title: "Book Library", image: UIImage(systemName: "books.vertical"), tag: 1)
+        bookLibraryNavigationController?.tabBarItem = UITabBarItem(title: "Book Library", image: UIImage(systemName: "books.vertical.fill"), tag: 1)
         
         tabBarController.viewControllers = [nextReadNavigationController!, bookLibraryNavigationController!]
         

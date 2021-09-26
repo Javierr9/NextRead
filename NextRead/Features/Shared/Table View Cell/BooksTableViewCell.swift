@@ -8,23 +8,32 @@
 import UIKit
 import SDWebImage
 
+enum BookType{
+    case bookModel
+    case book
+}
+
 class BooksTableViewCell: UITableViewCell {
 
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var bookAuthorLabel: UILabel!
     
+    
+    private var bookType:BookType?
     static let identifier = "BooksTableViewCell"
     
     var bookModel: BookDataModel?{
         didSet{
+            bookType = .bookModel
             setCellData()
         }
     }
     
     var book: Book?{
         didSet{
-            setCellDataBooks()
+            bookType = .book
+            setCellData()
         }
     }
     
@@ -51,19 +60,7 @@ extension BooksTableViewCell{
     }
     
     
-    func setCellData(){
-        guard let book = bookModel else {return}
-        if let imageURL = URL(string: book.volumeInfo?.imageLinks?.smallThumbnail ?? ""){
-            bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
-//                self.handle(image: image, error: error, cacheType: cacheType, url: url)
 
-            }
-        }
-        bookTitleLabel.text = book.volumeInfo?.title
-        bookAuthorLabel.text = book.volumeInfo?.authors?.first ?? "None"
-
-        
-    }
     
 
     
@@ -72,40 +69,56 @@ extension BooksTableViewCell{
 
 fileprivate extension BooksTableViewCell{
     
-//    func handle(image: UIImage?, error: Error?, cacheType: SDImageCacheType, url: URL?){
-//
-//       if let error = error{
-//           print("This is the error \(error.localizedDescription)")
-//           return
-//       }
-//
-//       guard let image = image, let url = url else {return}
-//
-//       let message = """
-//       Image Size
-//       \(image.size)
-//
-//       Cache:
-//       \(cacheType.rawValue)
-//
-//       URL:
-//       \(url)
-//
-//       """
-//
-//       print(message)
-//   }
-    
-    func setCellDataBooks(){
-        guard let book = self.book else {return}
-        if let imageURL = URL(string: book.smallThumbnail ?? ""){
+    func handle(image: UIImage?, error: Error?, cacheType: SDImageCacheType, url: URL?){
+
+       if let error = error{
+           print("This is the error \(error.localizedDescription)")
+           return
+       }
+
+       guard let image = image, let url = url else {return}
+
+       let message = """
+       Image Size
+       \(image.size)
+
+       Cache:
+       \(cacheType.rawValue)
+
+       URL:
+       \(url)
+
+       """
+
+       print(message)
+   }
+    func setCellData(){
+        var title = "", author = "", thumbnail = ""
+        
+        switch bookType{
+        case .bookModel :
+           guard let book = bookModel else {return}
+            thumbnail = book.volumeInfo?.imageLinks?.thumbnail ?? ""
+            title = book.volumeInfo?.title ?? "Title is unavailable"
+            author = book.volumeInfo?.authors?.first ?? "None"
+        default :
+            guard let book = self.book else {return}
+            thumbnail = book.thumbnail ?? ""
+            title = book.title ?? "Title is unavailable"
+            author = book.author ?? "None"
+        }
+        
+        if let imageURL = URL(string: thumbnail ){
             bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: []) { image, error, cacheType, url in
-//                self.handle(image: image, error: error, cacheType: cacheType, url: url)
+                self.handle(image: image, error: error, cacheType: cacheType, url: url)
 
             }
         }
-        bookTitleLabel.text = book.title
-        bookAuthorLabel.text = book.author
-
+        
+        bookTitleLabel.text = title
+        bookAuthorLabel.text = author
+        title = ""
+        author = ""
+        thumbnail = ""
     }
 }

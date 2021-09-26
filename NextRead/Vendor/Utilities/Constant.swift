@@ -12,3 +12,4 @@ struct Constant{
     static let BASE_URL = "https://www.googleapis.com/books/v1/volumes?q="
     static let TEST_URL = "https://www.googleapis.com/books/v1/volumes?q=harry+potter"
 }
+

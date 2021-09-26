@@ -15,7 +15,6 @@ class BookLibraryViewModel: NSObject{
     var setOfBooks: [Book]? {
         didSet {
             self.bindBookLibraryViewModelToController()
-            print("did set is called already call but why closure isnt trigger")
         }
     }
     
@@ -29,14 +28,6 @@ class BookLibraryViewModel: NSObject{
     func getFavoritedBooks(){
         
         setOfBooks = coreDataManager.fetchFavorite()
-    }
-    
-    func addToFavorites(bookModel: BookDataModel, changeMessage: ()-> Void){
-        coreDataManager?.addFavorite(using: bookModel){
-            changeMessage()
-        }
-        getFavoritedBooks()
-        
     }
     
     func deleteBookFromFavorite(book: Book){

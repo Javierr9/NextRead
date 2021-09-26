@@ -18,6 +18,7 @@ struct BookModel: Codable {
 
 struct BookDataModel: Codable {
         let id: String?
+        let selfLink: String?
         let volumeInfo :VolumeInfo?
     
 }

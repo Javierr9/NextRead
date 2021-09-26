@@ -18,7 +18,7 @@ class BookLibraryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         subscribeViewModel()
-        setupNavigationTitle()
+        setupNavigation()
 //        setupCollectionView()
         setupTableView()
         print("setup is donr")
@@ -47,10 +47,10 @@ class BookLibraryViewController: UIViewController {
          booksTableView.dataSource = self
          booksTableView.delegate = self
      }
-    func setupNavigationTitle(){
+    func setupNavigation(){
         title = "Book Library"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.isHidden = false
+        navigationItem.largeTitleDisplayMode = .always
     }
     
      func subscribeViewModel(){
@@ -119,4 +119,10 @@ extension BookLibraryViewController: UITableViewDelegate, UITableViewDataSource{
         return UISwipeActionsConfiguration(actions: [action])
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = BookDetailViewController(entryPoint: .bookLibrary)
+        viewController.book = arrayOfBooks[indexPath.row]
+        self.navigationController?.pushViewController(viewController, animated: true)
+        
+    }
 }

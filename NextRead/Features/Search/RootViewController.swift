@@ -37,11 +37,10 @@ class RootViewController: UIViewController {
 
 fileprivate extension RootViewController{
     
-    func setupNavigationTitle(){
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.isHidden = false
+    func setupNavigation(){
         title = "Next Read"
-    
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
     }
     
     func setupTableView(){
@@ -57,7 +56,7 @@ fileprivate extension RootViewController{
     }
     
     func setupView(){
-        setupNavigationTitle()
+        setupNavigation()
         setupTableView()
         subscribeViewModel()
         setupSearchController()
@@ -101,7 +100,7 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource, UISear
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewController = BookDetailViewController()
+        let viewController = BookDetailViewController(entryPoint: .bookSearch)
         viewController.bookDetail = arrayOfBooks[indexPath.row]
         self.navigationController?.pushViewController(viewController, animated: true)
             
