@@ -25,7 +25,6 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var bookAuthorLabel: UILabel!
-    @IBOutlet weak var bookDescription: UITextView!
     
     private var bookDetailViewModel: BookDetailViewModel?
     private var entryPoint: BookDetailViewControllerEntryPoint?
@@ -72,7 +71,6 @@ fileprivate extension BookDetailViewController{
             
             bookTitleLabel.text = bookData.title
             bookAuthorLabel.text = bookData.author ?? "Authors not available"
-            bookDescription.text = bookData.desc ?? "No description available"
             
         default :
             guard let bookDetail = bookDetail else {return}
@@ -87,7 +85,6 @@ fileprivate extension BookDetailViewController{
             }
             bookTitleLabel.text = bookDetail.volumeInfo?.title
             bookAuthorLabel.text = bookDetail.volumeInfo?.authors?.first ?? "Authors not available"
-            bookDescription.text = bookDetail.volumeInfo?.description ?? "No description available"
             
         }
         
@@ -103,7 +100,7 @@ fileprivate extension BookDetailViewController{
     
     func setupBarButtonItem(){
         //TODO: change the add to love and unlove aja gimana caranya ntar
-        let infoButton = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(apiDetail))
+        let infoButton = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(bookDetailTapped))
         let likeButton = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(addTapped))
         let unlikeButton = UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"), style: .plain, target: self, action: #selector(addTapped))
         
@@ -146,56 +143,69 @@ fileprivate extension BookDetailViewController{
     }
     
     @objc
-    func apiDetail(){
-        var message = """
-        """
-        switch entryPoint{
-        case .bookSearch:
-            guard let book = bookDetail else {return}
-            
-            message = """
-           
-            id = \(book.id)
-    
-            small thumbnail : \(book.volumeInfo?.imageLinks?.smallThumbnail)
-    
-            thumbnail : \(book.volumeInfo?.imageLinks?.thumbnail)
-    
-            authors = \(book.volumeInfo?.authors)
-    
-            description = \(book.volumeInfo?.description)
-            
-            url : \(book.selfLink)
-    
-    """
-        default:
-            guard let book = book else {return}
-            
-            message = """
-           
-            id = \(book.id)
-    
-            small thumbnail : \(book.smallThumbnail)
-    
-            thumbnail : \(book.thumbnail)
-    
-            authors = \(book.author)
-    
-            description = \(book.desc)
-    
-    """
-            
-        }
-        print(message)
+    func bookDetailTapped(){
+//        var message = """
+//        """
+//        switch entryPoint{
+//        case .bookSearch:
+//            guard let book = bookDetail else {return}
+//
+//            message = """
+//
+//            id = \(book.id)
+//
+//            small thumbnail : \(book.volumeInfo?.imageLinks?.smallThumbnail)
+//
+//            thumbnail : \(book.volumeInfo?.imageLinks?.thumbnail)
+//
+//            authors = \(book.volumeInfo?.authors)
+//
+//            description = \(book.volumeInfo?.description)
+//
+//            url : \(book.selfLink)
+//
+//    """
+//        default:
+//            guard let book = book else {return}
+//
+//            message = """
+//
+//            id = \(book.id)
+//
+//            small thumbnail : \(book.smallThumbnail)
+//
+//            thumbnail : \(book.thumbnail)
+//
+//            authors = \(book.author)
+//
+//            description = \(book.desc)
+//
+//    """
+//
+//        }
+//        print(message)
+//
+//        let alert = UIAlertController(title: "Book Api Info", message: message, preferredStyle: .alert)
+//        let dismiss = UIAlertAction(title: "Dismiss", style: .cancel) { alertAction in
+//
+//        }
+//        alert.addAction(dismiss)
+//        self.present(alert, animated: true) {
+//
+//        }
         
-        let alert = UIAlertController(title: "Book Api Info", message: message, preferredStyle: .alert)
-        let dismiss = UIAlertAction(title: "Dismiss", style: .cancel) { alertAction in
-            
+        let vc = BookDescriptionViewController()
+        switch entryPoint{
+        case .bookLibrary:
+            guard let description = book?.desc else {return}
+            vc.bookDescription = description
+        default:
+            guard let description = bookDetail?.volumeInfo?.description else {return}
+            vc.bookDescription = description
         }
-        alert.addAction(dismiss)
-        self.present(alert, animated: true) {
+        self.navigationController?.present(vc, animated: true, completion: {
             
-        }
+        })
     }
     
     func getCurrentBookID() -> String{

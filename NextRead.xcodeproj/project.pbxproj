@@ -16,6 +16,8 @@
 		3B2629D526F05D61001F39A4 /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2629D426F05D61001F39A4 /* BookViewModel.swift */; };
 		3B2629D726F0610B001F39A4 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2629D626F0610B001F39A4 /* Constant.swift */; };
 		3B2629DB26F063C9001F39A4 /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2629DA26F063C9001F39A4 /* BookModel.swift */; };
+		3B588068270409C800EAC39F /* BookDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B588066270409C800EAC39F /* BookDescriptionViewController.swift */; };
+		3B588069270409C800EAC39F /* BookDescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B588067270409C800EAC39F /* BookDescriptionViewController.xib */; };
 		3B77A6BC26EC874200DC3CFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B77A6BB26EC874200DC3CFF /* AppDelegate.swift */; };
 		3B77A6BE26EC874200DC3CFF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B77A6BD26EC874200DC3CFF /* SceneDelegate.swift */; };
 		3B77A6C626EC874200DC3CFF /* NextRead.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B77A6C426EC874200DC3CFF /* NextRead.xcdatamodeld */; };
@@ -43,6 +45,8 @@
 		3B2629D426F05D61001F39A4 /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
 		3B2629D626F0610B001F39A4 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		3B2629DA26F063C9001F39A4 /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
+		3B588066270409C800EAC39F /* BookDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDescriptionViewController.swift; sourceTree = "<group>"; };
+		3B588067270409C800EAC39F /* BookDescriptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookDescriptionViewController.xib; sourceTree = "<group>"; };
 		3B77A6B826EC874200DC3CFF /* NextRead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextRead.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B77A6BB26EC874200DC3CFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B77A6BD26EC874200DC3CFF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -189,6 +193,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3B6675892701EBB200B56F87 /* Book Description */ = {
+			isa = PBXGroup;
+			children = (
+				3B588066270409C800EAC39F /* BookDescriptionViewController.swift */,
+				3B588067270409C800EAC39F /* BookDescriptionViewController.xib */,
+			);
+			path = "Book Description";
+			sourceTree = "<group>";
+		};
 		3B77A6AF26EC874200DC3CFF = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +250,7 @@
 		3BCB8BDD26F8E410004F6659 /* Book Detail */ = {
 			isa = PBXGroup;
 			children = (
+				3B6675892701EBB200B56F87 /* Book Description */,
 				3B7F736C26F9FC85001E7D33 /* BookDetailViewController.swift */,
 				3B7F736D26F9FC85001E7D33 /* BookDetailViewController.xib */,
 				3BE41A5426FC998A0004FD81 /* BookDetailViewModel.swift */,
@@ -314,6 +328,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B588069270409C800EAC39F /* BookDescriptionViewController.xib in Resources */,
 				3B77A6CB26EC874300DC3CFF /* LaunchScreen.storyboard in Resources */,
 				3BCB8BDC26F8DF3C004F6659 /* BooksCollectionViewCell.xib in Resources */,
 				3B12D9C926EDBD9200FA118E /* BookLibraryViewController.xib in Resources */,
@@ -337,6 +352,7 @@
 				3B2629CC26EFC803001F39A4 /* NetworkRequest.swift in Sources */,
 				3BCB8BDB26F8DF3C004F6659 /* BooksCollectionViewCell.swift in Sources */,
 				3BE41A5526FC998B0004FD81 /* BookDetailViewModel.swift in Sources */,
+				3B588068270409C800EAC39F /* BookDescriptionViewController.swift in Sources */,
 				3B7F736E26F9FC85001E7D33 /* BookDetailViewController.swift in Sources */,
 				3B77A6BC26EC874200DC3CFF /* AppDelegate.swift in Sources */,
 				3B77A6D426ECE64900DC3CFF /* RootViewController.swift in Sources */,
