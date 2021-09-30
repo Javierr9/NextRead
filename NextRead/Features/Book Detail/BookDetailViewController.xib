@@ -23,30 +23,30 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ox4-sb-DeE">
-                    <rect key="frame" x="82" y="64" width="250" height="400"/>
+                    <rect key="frame" x="107" y="64" width="200" height="320"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="400" id="ixt-cW-Jq6"/>
-                        <constraint firstAttribute="width" constant="250" id="r17-R4-edk"/>
+                        <constraint firstAttribute="height" constant="320" id="ixt-cW-Jq6"/>
+                        <constraint firstAttribute="width" constant="200" id="r17-R4-edk"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgR-Or-eAV">
-                    <rect key="frame" x="20" y="498.5" width="374" height="18"/>
+                    <rect key="frame" x="20" y="433.5" width="374" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWW-4n-j1e">
-                    <rect key="frame" x="20" y="469" width="374" height="24.5"/>
+                    <rect key="frame" x="20" y="404" width="374" height="24.5"/>
                     <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="22"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="X2K-mF-Dm7">
-                    <rect key="frame" x="20" y="549" width="374" height="313"/>
+                    <rect key="frame" x="20" y="499" width="374" height="363"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Books similar to this " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EG5-Fl-uN5">
-                    <rect key="frame" x="20" y="521.5" width="180" height="22.5"/>
+                    <rect key="frame" x="20" y="471.5" width="180" height="22.5"/>
                     <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="vWW-4n-j1e" firstAttribute="top" secondItem="ox4-sb-DeE" secondAttribute="bottom" constant="5" id="5ts-ID-cGu"/>
+                <constraint firstItem="vWW-4n-j1e" firstAttribute="top" secondItem="ox4-sb-DeE" secondAttribute="bottom" constant="20" id="5ts-ID-cGu"/>
                 <constraint firstItem="ox4-sb-DeE" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="BQ5-sA-Cvz"/>
                 <constraint firstItem="bgR-Or-eAV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="EID-HT-RqE"/>
                 <constraint firstItem="bgR-Or-eAV" firstAttribute="top" secondItem="vWW-4n-j1e" secondAttribute="bottom" constant="5" id="J8X-rB-tl1"/>
@@ -67,7 +67,7 @@
                 <constraint firstItem="X2K-mF-Dm7" firstAttribute="top" secondItem="EG5-Fl-uN5" secondAttribute="bottom" constant="5" id="VmR-O2-bFA"/>
                 <constraint firstItem="vWW-4n-j1e" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="f3T-3e-RmQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bgR-Or-eAV" secondAttribute="trailing" constant="20" id="hmL-1e-J9n"/>
-                <constraint firstItem="EG5-Fl-uN5" firstAttribute="top" secondItem="bgR-Or-eAV" secondAttribute="bottom" constant="5" id="lxb-24-ElN"/>
+                <constraint firstItem="EG5-Fl-uN5" firstAttribute="top" secondItem="bgR-Or-eAV" secondAttribute="bottom" constant="20" id="lxb-24-ElN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vWW-4n-j1e" secondAttribute="trailing" constant="20" id="m6U-EB-wDs"/>
                 <constraint firstItem="bgR-Or-eAV" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mnR-jV-ODs"/>
                 <constraint firstItem="ox4-sb-DeE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="yFb-sg-qJx"/>

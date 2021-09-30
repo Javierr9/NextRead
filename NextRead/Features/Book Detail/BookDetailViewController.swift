@@ -49,6 +49,7 @@ class BookDetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("view appeared")
         setupNavigation()
     }
     
@@ -122,21 +123,38 @@ fileprivate extension BookDetailViewController{
     @objc
     func addTapped(){
         let id = getCurrentBookID()
+        print("the current entry point \(entryPoint)")
         switch addButtonStatus{
         case .like:
             switch entryPoint{
             case .bookSearch:
                 guard let bookModel = bookDetail else {return}
                 bookDetailViewModel?.addToFavorites(bookModel: bookModel)
+                print("book added by book search")
             default:
-                guard let book = self.book else {return}
-                bookDetailViewModel?.addToFavorites(book: book)
+                guard let bookData = self.book else {return}
+                bookDetailViewModel?.addToFavorites(book: bookData)
+                print("book added by book library")
+                
             }
-            
+            //TODO: Book library bukunya selalu tidak ada pas dari book library mau di like lagi
             setupBarButtonItem()
             
         default:
-            bookDetailViewModel?.removeBookFromFavorites(usingId: id)
+            switch entryPoint{
+            case .bookSearch:
+                var temp = bookDetail
+                bookDetailViewModel?.removeBookFromFavorites(usingId: id)
+                bookDetail = temp
+            default:
+//                var temp = bookDetailViewModel.get
+                // TODO: Copy data by doing deep copy instead of normal copy
+                bookDetailViewModel?.removeBookFromFavorites(usingId: id)
+//                book = temp as! Book
+            }
+            //Probably it is better to convert everything to get it from the API and only isFavorite for the book library
+            
+            
             setupBarButtonItem()
             
         }
@@ -203,9 +221,8 @@ fileprivate extension BookDetailViewController{
             guard let description = bookDetail?.volumeInfo?.description else {return}
             vc.bookDescription = description
         }
-        self.navigationController?.present(vc, animated: true, completion: {
-            
-        })
+        let navigation = UINavigationController(rootViewController: vc)
+        self.navigationController?.present(navigation, animated: true, completion: nil)
     }
     
     func getCurrentBookID() -> String{
@@ -215,11 +232,12 @@ fileprivate extension BookDetailViewController{
                 return id
             }
         default:
+            print("it hits this part")
             if let id  = book?.id{
                 return id
             }
         }
-        return ""
+        return "there is no id to save this book"
     }
     
     func handle(image: UIImage?, error: Error?, cacheType: SDImageCacheType, url: URL?){

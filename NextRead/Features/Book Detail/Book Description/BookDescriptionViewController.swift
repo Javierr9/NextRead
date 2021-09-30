@@ -11,15 +11,12 @@ class BookDescriptionViewController: UIViewController {
 
     @IBOutlet weak var bookDescriptionTextView: UITextView!
     
-    var bookDescription: String?{
-        didSet{
-            setBookDescription()
-        }
-    }
+    var bookDescription: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setNavigation()
+        setBookDescription()
         // Do any additional setup after loading the view.
     }
 
@@ -38,9 +35,18 @@ class BookDescriptionViewController: UIViewController {
 
 fileprivate extension BookDescriptionViewController{
     
+    func setNavigation(){
+        navigationController?.isNavigationBarHidden = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissController))
+    }
+    
+    @objc
+    func dismissController(){
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func setBookDescription(){
         guard let description = bookDescription else {return}
-        bookDescriptionTextView.text = "네 안녕하세요!"
+        bookDescriptionTextView.text = description
     }
 }
