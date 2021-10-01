@@ -14,17 +14,12 @@ class BookDetailViewModel: NSObject{
     private var coreDataManager: CoreDataManager!
     private var service: NetworkRequest!
     
-    private(set) var dataFromAPI: BookModel?{
+    private(set) var bookDetail: BookDataModel?{
         didSet{
             self.bindBookDetailViewModelToController()
         }
     }
     
-    private var setOfBooks: [Book]?{
-        didSet{
-            self.bindBookDetailViewModelToController()
-        }
-    }
     
     var bindBookDetailViewModelToController: (()->()) = {}
     
@@ -34,35 +29,31 @@ class BookDetailViewModel: NSObject{
         coreDataManager = CoreDataManager.shared
     }
     
-    
-    // TODO: Add to recent searches
-    func addBookToRecentSearches(){
-        
+    func fetchBookFromApi(byId id: String){
+        service.requestBookFromAPIWith(bookId: id) { object in
+            self.bookDetail = object
+        }
     }
-    
     
     //MARK: Get Favorited Books
     
     func getFavoritedBooks(){
-        setOfBooks = coreDataManager.fetchFavorite()
+//        coreDataManager.fetchFavoriteIds()
     }
     
     // MARK: Add to favorites
-    func addToFavorites(bookModel: BookDataModel){
-        coreDataManager?.addFavorite(using: bookModel)
+    func addToFavorites(){
+        guard let book = bookDetail else {return}
+        coreDataManager?.addFavorite(using: book)
         getFavoritedBooks()
         
     }
     
-    func addToFavorites(book: Book){
-        coreDataManager.addFavorite(using: book)
-    }
-    
-    func checkBookExist(bookID: String) -> Bool {
-        return coreDataManager.checkBookExist(bookID: bookID)
+    func checkBookExist(bookId: String) -> Bool {
+        return coreDataManager.checkBookExist(bookID: bookId)
     }
     // MARK: Delete from favorites
-    func removeBookFromFavorites(usingId id: String){
+    func deleteBookFromFavorites(usingId id: String){
         coreDataManager.deleteFavorite(byBookID: id)
         getFavoritedBooks()
     }

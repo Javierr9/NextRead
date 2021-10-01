@@ -12,7 +12,9 @@ class BookLibraryViewModel: NSObject{
     private var coreDataManager:CoreDataManager!
     
     
-    var setOfBooks: [Book]? {
+    private var setOfBooks: [Book]?
+    
+    var thumbnailDatas: [ThumbnailDataModel]?{
         didSet {
             self.bindBookLibraryViewModelToController()
         }
@@ -26,12 +28,23 @@ class BookLibraryViewModel: NSObject{
     }
     
     func getFavoritedBooks(){
-        
         setOfBooks = coreDataManager.fetchFavorite()
+        setupThumbnailDatas()
     }
     
-    func deleteBookFromFavorite(book: Book){
-        coreDataManager?.deleteFavorite(byBook: book)
+    func deleteBookFromFavorite(byId id: String){
+        coreDataManager.deleteFavorite(byBookID: id)
         getFavoritedBooks()
+    }
+}
+
+fileprivate extension BookLibraryViewModel{
+    
+    func setupThumbnailDatas(){
+        thumbnailDatas = []
+        guard let books = setOfBooks else {return}
+        for book in books{
+            thumbnailDatas?.append(ThumbnailDataModel(id: book.id, title: book.title, authors: book.authors, smallThumbnail: book.smallThumbnail))
+        }
     }
 }

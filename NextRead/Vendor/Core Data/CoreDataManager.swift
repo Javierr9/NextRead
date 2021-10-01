@@ -66,13 +66,34 @@ class CoreDataManager{
 
 extension CoreDataManager{
     
+    func fetchFavoriteIds() -> [String]?{
+        var ids:[String] = []
+        do{
+            let request = Book.fetchRequest() as NSFetchRequest<Book>
+            let predicate = NSPredicate(format: "isFavorite = %d", true)
+            request.predicate = predicate
+            let books = try managedObjectContext.fetch(request)
+            for book in books{
+                if let id = book.id{
+                    ids.append(id)
+                }
+                
+            }
+            return ids
+        }catch{
+            print("\(error.localizedDescription)")
+            fatalError()
+        }
+        
+        
+    }
+    
     func fetchFavorite() -> [Book]?{
         do{
             let request = Book.fetchRequest() as NSFetchRequest<Book>
             let predicate = NSPredicate(format: "isFavorite = %d", true)
             request.predicate = predicate
             let books = try managedObjectContext.fetch(request)
-            
             return books
         }catch{
             print("\(error.localizedDescription)")
@@ -82,6 +103,7 @@ extension CoreDataManager{
         
     }
     
+    
     func addFavorite(using model: BookDataModel){
         //Filter if book dont have then add
         guard let id = model.id else {return}
@@ -89,11 +111,8 @@ extension CoreDataManager{
             let book = Book(context: managedObjectContext)
             book.id = model.id
             book.title = model.volumeInfo?.title
-            book.author = model.volumeInfo?.authors?.first
-            book.desc = model.volumeInfo?.description
             book.isFavorite = true
             book.smallThumbnail = model.volumeInfo?.imageLinks?.smallThumbnail
-            book.thumbnail = model.volumeInfo?.imageLinks?.thumbnail
             //book.isRecent = true sih harusnya
             do{
                 try managedObjectContext.save()
@@ -115,11 +134,8 @@ extension CoreDataManager{
             let bookToBeSaved = Book(context: managedObjectContext)
             bookToBeSaved.id = book.id
             bookToBeSaved.title = book.title
-            bookToBeSaved.author = book.author
-            bookToBeSaved.desc = book.desc
             bookToBeSaved.isFavorite = true
             bookToBeSaved.smallThumbnail = book.smallThumbnail
-            bookToBeSaved.thumbnail = book.thumbnail
             //book.isRecent = true sih harusnya
             do{
                 try managedObjectContext.save()
@@ -161,7 +177,7 @@ extension CoreDataManager{
           
                 
         
-            return false
+            
         }
         
     }

@@ -12,7 +12,7 @@ class RootViewController: UIViewController {
     @IBOutlet weak var searchResultTableView: UITableView!
     
     private let bookViewModel = BookViewModel()
-    private var arrayOfBooks:[BookDataModel] = []
+    private var thumbnailDatas:[ThumbnailDataModel] = []
     
     private let searchController = UISearchController()
     
@@ -21,17 +21,6 @@ class RootViewController: UIViewController {
         setupView()
         // Do any additional setup after loading the view.
     }
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -69,7 +58,7 @@ fileprivate extension RootViewController{
     }
     
     func bindData(){
-        arrayOfBooks = bookViewModel.dataFromAPI?.data ?? []
+        thumbnailDatas = bookViewModel.thumbnailDatas ?? []
         DispatchQueue.main.async {
             self.searchResultTableView.reloadData()
         }
@@ -88,20 +77,19 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource, UISear
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayOfBooks.count
+        return thumbnailDatas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BooksTableViewCell.identifier, for: indexPath) as! BooksTableViewCell
-        
-        cell.bookModel = arrayOfBooks[indexPath.row]
+        cell.thumbnailData = thumbnailDatas[indexPath.row]
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewController = BookDetailViewController(entryPoint: .bookSearch)
-        viewController.bookDetail = arrayOfBooks[indexPath.row]
+        let viewController = BookDetailViewController()
+        viewController.bookId = thumbnailDatas[indexPath.row].id
         self.navigationController?.pushViewController(viewController, animated: true)
             
     }

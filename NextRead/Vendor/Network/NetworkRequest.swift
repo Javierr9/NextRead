@@ -11,7 +11,7 @@ import Foundation
 class NetworkRequest: NSObject {
     
     
-    func requestDataFromAPI(completion: @escaping (BookModel)->()){
+    func requestBookFromApi(completion: @escaping (BookModel)->()){
         //Initiate URL Session Request
         URLSession.shared.dataTask(with: URL(string: Constant.TEST_URL)!) { data, response, error in
             do{
@@ -28,8 +28,11 @@ class NetworkRequest: NSObject {
     }
     
     
-    func requestDataFromAPIWithQuery(query: String, completion: @escaping (BookModel)->()){
-        URLSession.shared.dataTask(with: URL(string: "\(Constant.BASE_URL)\(query)&langRestrict=en")!) { data, response, error in
+    
+    
+    func requestDataFromApiWith(searchQuery query: String, completion: @escaping (BookModel)->()){
+        guard let urlRequest = URL(string: "\(Constant.BASE_URL)\(query)&langRestrict=en") else {return}
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             do{
                 if let data = data{
                     let jsonDecoder = JSONDecoder()
@@ -39,10 +42,29 @@ class NetworkRequest: NSObject {
                     completion(dataResponse)
                     
                 }
-            }catch {}
+            }catch {
+                print("error in requestBookFromAPIWith searchQuery \(error.localizedDescription) ")
+            }
             
         }.resume()
     }
     
+    func requestBookFromAPIWith(bookId id: String, completion: @escaping (BookDataModel)->()){
+        guard let urlRequest = URL(string: "\(Constant.ID_URL)\(id)") else {return}
+        print(urlRequest)
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            do{
+                if let data = data {
+                    let jsonDecoder = JSONDecoder()
+                    
+                    let dataResponse = try jsonDecoder.decode(BookDataModel.self, from: data)
+                    print("this is the data response \(dataResponse)")
+                    completion(dataResponse)
+                }
+            }catch{
+                print("error in requestBookFromAPIWith bookId \(error.localizedDescription) ")
+            }
+        }.resume()
+    }
     
 }
