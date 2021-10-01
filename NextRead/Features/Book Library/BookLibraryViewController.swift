@@ -16,11 +16,7 @@ class BookLibraryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        subscribeViewModel()
-        setupNavigation()
-        setupTableView()
-        print("setup is donr")
-        // Do any additional setup after loading the view.
+        setupView()
     }
     
 
@@ -30,6 +26,12 @@ class BookLibraryViewController: UIViewController {
 }
 
  extension BookLibraryViewController{
+     
+     func setupView(){
+         subscribeViewModel()
+         setupNavigation()
+         setupTableView()
+     }
      
      func setupTableView(){
          booksTableView.register(BooksTableViewCell.getNib(), forCellReuseIdentifier: BooksTableViewCell.identifier)
@@ -67,9 +69,7 @@ extension BookLibraryViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BooksTableViewCell.identifier, for: indexPath) as! BooksTableViewCell
-        
         cell.thumbnailData = thumbnailDatas[indexPath.row]
-        
         return cell
     }
     

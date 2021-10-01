@@ -111,6 +111,7 @@ extension CoreDataManager{
             let book = Book(context: managedObjectContext)
             book.id = model.id
             book.title = model.volumeInfo?.title
+            book.authors = model.volumeInfo?.authors
             book.isFavorite = true
             book.smallThumbnail = model.volumeInfo?.imageLinks?.smallThumbnail
             //book.isRecent = true sih harusnya
@@ -155,28 +156,25 @@ extension CoreDataManager{
         do{
             let request = Book.fetchRequest() as NSFetchRequest<Book>
             book = try managedObjectContext.fetch(request)
-       
+            
             
         }catch{
-            print(error.localizedDescription)
+            print("\(error.localizedDescription)")
             fatalError()
         }
         if book?.count == 0 {
-            print("storage is empty book is non existo")
             return false
         }else{
-                
-                   book = fetchBookById(bookID: bookID)
-                    if book?.count == 0{
-                        print("book is non existo by query but there are other books")
-                        return false
-                    }else{
-                        print("book is existo by query")
-                        return true
-                    }
-          
-                
-        
+            
+            book = fetchBookById(bookID: bookID)
+            if book?.count == 0{
+                return false
+            }else{
+                return true
+            }
+            
+            
+            
             
         }
         
@@ -184,9 +182,9 @@ extension CoreDataManager{
     
     func deleteFavorite(byBook bookObject: Book){
         
-        let personToBeRemove = bookObject
+        let bookToBeDeleted = bookObject
         
-        managedObjectContext.delete(personToBeRemove)
+        managedObjectContext.delete(bookToBeDeleted)
         
         do{
             try managedObjectContext.save()

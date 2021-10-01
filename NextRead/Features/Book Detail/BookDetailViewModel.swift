@@ -36,9 +36,8 @@ class BookDetailViewModel: NSObject{
     }
     
     //MARK: Get Favorited Books
-    
     func getFavoritedBooks(){
-//        coreDataManager.fetchFavoriteIds()
+
     }
     
     // MARK: Add to favorites
