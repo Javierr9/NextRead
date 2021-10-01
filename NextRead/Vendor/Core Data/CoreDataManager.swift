@@ -66,13 +66,34 @@ class CoreDataManager{
 
 extension CoreDataManager{
     
+    func fetchFavoriteIds() -> [String]?{
+        var ids:[String] = []
+        do{
+            let request = Book.fetchRequest() as NSFetchRequest<Book>
+            let predicate = NSPredicate(format: "isFavorite = %d", true)
+            request.predicate = predicate
+            let books = try managedObjectContext.fetch(request)
+            for book in books{
+                if let id = book.id{
+                    ids.append(id)
+                }
+                
+            }
+            return ids
+        }catch{
+            print("\(error.localizedDescription)")
+            fatalError()
+        }
+        
+        
+    }
+    
     func fetchFavorite() -> [Book]?{
         do{
             let request = Book.fetchRequest() as NSFetchRequest<Book>
             let predicate = NSPredicate(format: "isFavorite = %d", true)
             request.predicate = predicate
             let books = try managedObjectContext.fetch(request)
-            
             return books
         }catch{
             print("\(error.localizedDescription)")
@@ -82,19 +103,16 @@ extension CoreDataManager{
         
     }
     
-    func addFavorite(using model: BookDataModel, changeMessage: ()-> Void){
-        //TODO: Validate if the books is not already in here
-        //Idea is get book by model id if entry null then add book
-        if !checkBookExist(model: model){
-            //Filter if book dont have then add
+    
+    func addFavorite(using model: BookDataModel){
+        //Filter if book dont have then add
+        guard let id = model.id else {return}
+        if !checkBookExist(bookID: id){
             let book = Book(context: managedObjectContext)
             book.id = model.id
             book.title = model.volumeInfo?.title
-            book.author = model.volumeInfo?.authors?.first
-            book.desc = model.volumeInfo?.description
             book.isFavorite = true
             book.smallThumbnail = model.volumeInfo?.imageLinks?.smallThumbnail
-            book.thumbnail = model.volumeInfo?.imageLinks?.thumbnail
             //book.isRecent = true sih harusnya
             do{
                 try managedObjectContext.save()
@@ -103,17 +121,37 @@ extension CoreDataManager{
                 fatalError()
             }
             
-        }else{
-            changeMessage()
         }
         
         
         
     }
     
-    func checkBookExist(model: BookDataModel) -> Bool{
+    func addFavorite(using book: Book){
+        //Filter if book dont have then add
+        guard let id = book.id else {return}
+        if !checkBookExist(bookID: id){
+            let bookToBeSaved = Book(context: managedObjectContext)
+            bookToBeSaved.id = book.id
+            bookToBeSaved.title = book.title
+            bookToBeSaved.isFavorite = true
+            bookToBeSaved.smallThumbnail = book.smallThumbnail
+            //book.isRecent = true sih harusnya
+            do{
+                try managedObjectContext.save()
+            }catch{
+                print("\(error.localizedDescription)")
+                fatalError()
+            }
+            
+        }
+        
+        
+        
+    }
+    
+    func checkBookExist(bookID: String) -> Bool{
         var book:[Book]? = []
-        //Check dulu itu kosong apa engga
         do{
             let request = Book.fetchRequest() as NSFetchRequest<Book>
             book = try managedObjectContext.fetch(request)
@@ -127,13 +165,8 @@ extension CoreDataManager{
             print("storage is empty book is non existo")
             return false
         }else{
-            do{
                 
-                if let id = model.id{
-                    let predicate = NSPredicate(format: "id == %@", id)
-                    let request = Book.fetchRequest() as NSFetchRequest<Book>
-                    request.predicate = predicate
-                    book = try managedObjectContext.fetch(request)
+                   book = fetchBookById(bookID: bookID)
                     if book?.count == 0{
                         print("book is non existo by query but there are other books")
                         return false
@@ -142,43 +175,14 @@ extension CoreDataManager{
                         return true
                     }
           
-                }
-            }catch{
-                print(error.localizedDescription)
-                fatalError()
-            }
-            return false
+                
+        
+            
         }
-
-        //        if let id = model.id{
-        //            print("this is the id of the model \(id)")
-        //            do{
-        //                let request = Book.fetchRequest() as NSFetchRequest<Book>
-        //                let predicate = NSPredicate(format: "id = %s", id)
-        //                request.predicate = predicate
-        //                let book =  try managedObjectContext.fetch(request)
-        //                print("thi is the \(book)")
-        //                if book.isEmpty {
-        //                    print("book non existo")
-        //                    return false
-        //
-        //                }
-        //                print("book existo")
-        //                return true
-        //
-        //            }catch{
-        //                print("\(error.localizedDescription)")
-        //                fatalError()
-        //            }
-        //
-        //        }else{
-        //            return false
-        //        }
-        //
-        //        return true
+        
     }
     
-    func deleteFavorite(using bookObject: Book){
+    func deleteFavorite(byBook bookObject: Book){
         
         let personToBeRemove = bookObject
         
@@ -192,7 +196,19 @@ extension CoreDataManager{
         }
         
         
+    }
+    
+    func deleteFavorite(byBookID id: String){
+        guard let bookToBeDeleted = fetchBookById(bookID: id)?.first else {return}
         
+        managedObjectContext.delete(bookToBeDeleted)
+        
+        do{
+            try managedObjectContext.save()
+        }catch{
+            print("\(error.localizedDescription)")
+            fatalError()
+        }
     }
     
     func fetchRecentSearches() -> [Book]? {
@@ -210,6 +226,23 @@ extension CoreDataManager{
             fatalError()
         }
         
+        
+    }
+    
+    
+    func fetchBookById(bookID : String) -> [Book]?{
+        do{
+            let request = Book.fetchRequest() as NSFetchRequest<Book>
+            let predicate = NSPredicate(format: "id = %@", bookID)
+            request.predicate = predicate
+            request.fetchLimit = 1
+            let books = try managedObjectContext.fetch(request)
+            return books
+            
+        }catch{
+            print("\(error.localizedDescription)")
+            fatalError()
+        }
         
     }
     

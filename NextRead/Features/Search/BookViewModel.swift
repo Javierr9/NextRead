@@ -11,14 +11,16 @@ class BookViewModel: NSObject {
     
     private var service:NetworkRequest!
     
-    
     // Viewmodel akan berinteraksi dengan service/server/network request
-    
-    private(set) var dataFromAPI:BookModel?{
+    private(set) var thumbnailDatas: [ThumbnailDataModel]?{
         didSet{
             self.bindBookViewModelToController()
         }
     }
+    
+    private(set) var dataFromAPI:BookModel?
+    
+    
     
     // Create a property in view model named "bindBookViewModelToController"
     //This property needs to be called from the view controller
@@ -32,21 +34,23 @@ class BookViewModel: NSObject {
     
     func fetchDataWithQuery(query: String){
         let queryChanged = query.replacingOccurrences(of: " ", with: "+")
-        service.requestDataFromAPIWithQuery(query: queryChanged) { object in
+        service.requestDataFromApiWith(searchQuery: queryChanged) { object in
             self.dataFromAPI = object
+            self.setupThumbnailDatas()
         }
+      
+        
     }
    
 }
 
 fileprivate extension BookViewModel{
     
-    func fetchData(){
-        //Here we fetch the data from the API
-        service.requestDataFromAPI { object in
-            print(object)
-            self.dataFromAPI = object
-            
+    func setupThumbnailDatas(){
+        thumbnailDatas = []
+        guard let dataResponse = dataFromAPI?.data else {return}
+        for data in dataResponse{
+            thumbnailDatas?.append(ThumbnailDataModel(id: data.id, title: data.volumeInfo?.title, authors: data.volumeInfo?.authors, smallThumbnail: data.volumeInfo?.imageLinks?.smallThumbnail))
         }
     }
     
