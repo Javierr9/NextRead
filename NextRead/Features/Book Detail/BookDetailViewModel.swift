@@ -20,8 +20,16 @@ class BookDetailViewModel: NSObject{
         }
     }
     
+    private(set) var recommendationThumbnailDatas: [ThumbnailDataModel] = []{
+        didSet{
+            self.recommendationThumbnailDidLoad()
+        }
+    }
+    
+    private(set) var recommendedBookIds: [BookRecommendationDataModel]?
     
     var bindBookDetailViewModelToController: (()->()) = {}
+    var recommendationThumbnailDidLoad: (()->()) = {}
     
     override init(){
         super.init()
@@ -30,31 +38,50 @@ class BookDetailViewModel: NSObject{
     }
     
     func fetchBookFromApi(byId id: String){
-        service.requestBookFromAPIWith(bookId: id) { object in
+        service.requestBookFromApiWith(bookId: id) { object in
             self.bookDetail = object
         }
-    }
-    
-    //MARK: Get Favorited Books
-    func getFavoritedBooks(){
-
     }
     
     // MARK: Add to favorites
     func addToFavorites(){
         guard let book = bookDetail else {return}
         coreDataManager?.addFavorite(using: book)
-        getFavoritedBooks()
         
     }
     
     func checkBookExist(bookId: String) -> Bool {
         return coreDataManager.checkBookExist(bookID: bookId)
     }
+    
     // MARK: Delete from favorites
     func deleteBookFromFavorites(usingId id: String){
         coreDataManager.deleteFavorite(byBookID: id)
-        getFavoritedBooks()
+    }
+    
+    func fetchBookRecommendations(usingId id:String){
+        service.requestSimilarBookFromApiWith(bookId: id) { bookRecommendation in
+            self.recommendedBookIds = bookRecommendation
+            print("book detail view model data is setting up thumbnail datas")
+            self.fetchThumbnailDatasFromIdArray()
+        }
     }
 
+}
+
+fileprivate extension BookDetailViewModel{
+    func fetchThumbnailDatasFromIdArray(){
+        var temporaryData: [ThumbnailDataModel]  = []
+        guard let bookIds = recommendedBookIds else {return}
+        for bookId in bookIds{
+            guard let recommendedBookId = bookId.id else {return}
+            print("this is the current book id \(recommendedBookId)")
+            service.requestBookFromApiWith(bookId: recommendedBookId) { bookDataModel in
+                temporaryData.append(ThumbnailDataModel(id: bookDataModel.id, title: bookDataModel.volumeInfo?.title, authors: bookDataModel.volumeInfo?.authors, smallThumbnail: bookDataModel.volumeInfo?.imageLinks?.smallThumbnail))
+                print(bookDataModel)
+                self.recommendationThumbnailDatas = temporaryData
+            }
+        }
+        
+    }
 }

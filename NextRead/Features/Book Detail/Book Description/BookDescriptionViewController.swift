@@ -47,6 +47,6 @@ fileprivate extension BookDescriptionViewController{
     
     func setBookDescription(){
         guard let description = bookDescription else {return}
-        bookDescriptionTextView.text = description
+        bookDescriptionTextView.text = description.htmlToString
     }
 }

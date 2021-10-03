@@ -19,20 +19,24 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var bookAuthorLabel: UILabel!
+    @IBOutlet weak var bookRecommendationTableView: UITableView!
     
     private var bookDetailViewModel = BookDetailViewModel()
     private var addButtonStatus: AddButtonStatus?
     
     var bookId: String?
     var bookDetail:BookDataModel?
+    var bookRecommendationThumbnails: [ThumbnailDataModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavigation()
+        bookRecommendationTableView.reloadData()
     }
     
     
@@ -45,6 +49,13 @@ fileprivate extension BookDetailViewController{
         getBook()
         setupNavigation()
         subscribeViewModel()
+        setupTableView()
+    }
+    
+    func setupTableView(){
+        bookRecommendationTableView.register(BooksTableViewCell.getNib(), forCellReuseIdentifier: BooksTableViewCell.identifier)
+        bookRecommendationTableView.dataSource = self
+        bookRecommendationTableView.delegate = self
     }
     
     func getBook(){
@@ -69,7 +80,19 @@ fileprivate extension BookDetailViewController{
         bookDetailViewModel.bindBookDetailViewModelToController = {
             self.loadDetailsData()
         }
+        bookDetailViewModel.recommendationThumbnailDidLoad = {
+            self.loadBookRecommendationsThumbnailDatas()
+        }
     }
+    
+    func loadBookRecommendationsThumbnailDatas(){
+        bookRecommendationThumbnails = bookDetailViewModel.recommendationThumbnailDatas
+        
+        DispatchQueue.main.async {
+            self.bookRecommendationTableView.reloadData()
+        }
+    }
+    
     
     func setupDetailView(){
         guard let bookDetail = bookDetail else {return}
@@ -129,15 +152,41 @@ fileprivate extension BookDetailViewController{
     
     @objc
     func bookDetailTapped(){
-        let vc = BookDescriptionViewController()
-        
-        guard let description = bookDetail?.volumeInfo?.description else {return}
-        vc.bookDescription = description
-        
-        let navigation = UINavigationController(rootViewController: vc)
-        self.navigationController?.present(navigation, animated: true, completion: nil)
+//        let vc = BookDescriptionViewController()
+//
+//        guard let description = bookDetail?.volumeInfo?.description else {return}
+//        vc.bookDescription = description
+//
+//        let navigation = UINavigationController(rootViewController: vc)
+//        self.navigationController?.present(navigation, animated: true, completion: nil)
+        print("this is tapped")
+        bookDetailViewModel.fetchBookRecommendations(usingId: bookId ?? "")
     }
     
     
 }
 
+extension BookDetailViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return bookRecommendationThumbnails.count
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: BooksTableViewCell.identifier, for: indexPath) as! BooksTableViewCell
+        cell.thumbnailData = bookRecommendationThumbnails[indexPath.row]
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = BookDetailViewController()
+        viewController.bookId = bookRecommendationThumbnails[indexPath.row].id
+        self.navigationController?.pushViewController(viewController, animated: true)
+            
+    }
+    
+    
+}

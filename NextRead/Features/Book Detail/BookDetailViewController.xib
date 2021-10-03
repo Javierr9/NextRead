@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="bookAuthorLabel" destination="bgR-Or-eAV" id="KRQ-ng-xIQ"/>
                 <outlet property="bookImageView" destination="ox4-sb-DeE" id="d3f-wK-jle"/>
+                <outlet property="bookRecommendationTableView" destination="X2K-mF-Dm7" id="886-GN-fWh"/>
                 <outlet property="bookTitleLabel" destination="vWW-4n-j1e" id="YtS-Gp-D4m"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -41,7 +42,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="X2K-mF-Dm7">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="X2K-mF-Dm7">
                     <rect key="frame" x="20" y="499" width="374" height="363"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
