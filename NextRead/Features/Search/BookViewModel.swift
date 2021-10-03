@@ -21,7 +21,6 @@ class BookViewModel: NSObject {
     private(set) var dataFromAPI:BookModel?
     
     
-    
     // Create a property in view model named "bindBookViewModelToController"
     //This property needs to be called from the view controller
     
@@ -47,11 +46,12 @@ class BookViewModel: NSObject {
 fileprivate extension BookViewModel{
     
     func setupThumbnailDatas(){
-        thumbnailDatas = []
+        var thumbnailTemporaryData: [ThumbnailDataModel] = []
         guard let dataResponse = dataFromAPI?.data else {return}
         for data in dataResponse{
-            thumbnailDatas?.append(ThumbnailDataModel(id: data.id, title: data.volumeInfo?.title, authors: data.volumeInfo?.authors, smallThumbnail: data.volumeInfo?.imageLinks?.smallThumbnail))
+            thumbnailTemporaryData.append(ThumbnailDataModel(id: data.id, title: data.volumeInfo?.title, authors: data.volumeInfo?.authors, smallThumbnail: data.volumeInfo?.imageLinks?.smallThumbnail))
         }
+        thumbnailDatas = thumbnailTemporaryData
     }
     
 }

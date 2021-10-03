@@ -11,7 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookLibraryViewController" customModule="NextRead" customModuleProvider="target">
             <connections>
+                <outlet property="booksCollectionView" destination="gua-Cp-vJN" id="bzM-8q-J6W"/>
                 <outlet property="booksTableView" destination="7pi-WW-Zb1" id="Qrp-5g-JeD"/>
+                <outlet property="librarySwitch" destination="rcd-TG-ksI" id="aEE-Hd-hGz"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,19 +23,42 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7pi-WW-Zb1">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="83" width="414" height="779"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gua-Cp-vJN">
+                    <rect key="frame" x="0.0" y="83" width="414" height="779"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="njA-KC-5xZ">
+                        <size key="itemSize" width="150" height="200"/>
+                        <size key="estimatedItemSize" width="150" height="200"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rcd-TG-ksI">
+                    <rect key="frame" x="5" y="44" width="51" height="31"/>
+                    <connections>
+                        <action selector="switchDidChanged:" destination="-1" eventType="valueChanged" id="gMb-qp-PkP"/>
+                    </connections>
+                </switch>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="7pi-WW-Zb1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="89b-ME-3Rh"/>
+                <constraint firstItem="7pi-WW-Zb1" firstAttribute="top" secondItem="rcd-TG-ksI" secondAttribute="bottom" constant="8" symbolic="YES" id="Emq-dK-0BP"/>
+                <constraint firstItem="rcd-TG-ksI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="5" id="Ep0-ur-kr1"/>
+                <constraint firstItem="gua-Cp-vJN" firstAttribute="top" secondItem="rcd-TG-ksI" secondAttribute="bottom" constant="8" symbolic="YES" id="Fgi-ZI-afa"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="gua-Cp-vJN" secondAttribute="bottom" id="LpG-d8-fAb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="7pi-WW-Zb1" secondAttribute="bottom" id="RKT-wq-blS"/>
-                <constraint firstItem="7pi-WW-Zb1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="YHe-7t-EYZ"/>
+                <constraint firstItem="rcd-TG-ksI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ZAC-ha-ePk"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gua-Cp-vJN" secondAttribute="trailing" id="ZUh-ZL-ntI"/>
+                <constraint firstItem="gua-Cp-vJN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bSH-WF-AN1"/>
                 <constraint firstItem="7pi-WW-Zb1" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="jgV-im-tWQ"/>
             </constraints>
-            <point key="canvasLocation" x="88" y="141"/>
+            <point key="canvasLocation" x="86.956521739130437" y="140.625"/>
         </view>
     </objects>
     <resources>
