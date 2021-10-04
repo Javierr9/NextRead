@@ -43,6 +43,11 @@
                         <action selector="switchDidChanged:" destination="-1" eventType="valueChanged" id="gMb-qp-PkP"/>
                     </connections>
                 </switch>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xxh-PK-pgT">
+                    <rect key="frame" x="337" y="44" width="67" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -51,7 +56,9 @@
                 <constraint firstItem="7pi-WW-Zb1" firstAttribute="top" secondItem="rcd-TG-ksI" secondAttribute="bottom" constant="8" symbolic="YES" id="Emq-dK-0BP"/>
                 <constraint firstItem="rcd-TG-ksI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="5" id="Ep0-ur-kr1"/>
                 <constraint firstItem="gua-Cp-vJN" firstAttribute="top" secondItem="rcd-TG-ksI" secondAttribute="bottom" constant="8" symbolic="YES" id="Fgi-ZI-afa"/>
+                <constraint firstItem="xxh-PK-pgT" firstAttribute="centerY" secondItem="rcd-TG-ksI" secondAttribute="centerY" id="I8T-1l-yPO"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="gua-Cp-vJN" secondAttribute="bottom" id="LpG-d8-fAb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xxh-PK-pgT" secondAttribute="trailing" constant="10" id="MH3-Wh-f3l"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="7pi-WW-Zb1" secondAttribute="bottom" id="RKT-wq-blS"/>
                 <constraint firstItem="rcd-TG-ksI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ZAC-ha-ePk"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gua-Cp-vJN" secondAttribute="trailing" id="ZUh-ZL-ntI"/>

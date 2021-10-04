@@ -39,6 +39,9 @@ class BookDetailViewController: UIViewController {
         bookRecommendationTableView.reloadData()
     }
     
+    @IBAction func openDescription(_ sender: Any) {
+        openBookDescription()
+    }
     
 }
 
@@ -152,17 +155,19 @@ fileprivate extension BookDetailViewController{
     
     @objc
     func bookDetailTapped(){
-//        let vc = BookDescriptionViewController()
-//
-//        guard let description = bookDetail?.volumeInfo?.description else {return}
-//        vc.bookDescription = description
-//
-//        let navigation = UINavigationController(rootViewController: vc)
-//        self.navigationController?.present(navigation, animated: true, completion: nil)
         print("this is tapped")
         bookDetailViewModel.fetchBookRecommendations(usingId: bookId ?? "")
     }
     
+    func openBookDescription(){
+        let vc = BookDescriptionViewController()
+
+        guard let description = bookDetail?.volumeInfo?.description else {return}
+        vc.bookDescription = description
+
+        let navigation = UINavigationController(rootViewController: vc)
+        self.navigationController?.present(navigation, animated: true, completion: nil)
+    }
     
 }
 

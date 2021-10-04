@@ -55,6 +55,7 @@ fileprivate extension RootViewController{
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Titles"
     }
     
     func bindData(){
