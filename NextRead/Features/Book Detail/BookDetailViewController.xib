@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -15,6 +14,7 @@
                 <outlet property="bookImageView" destination="ox4-sb-DeE" id="d3f-wK-jle"/>
                 <outlet property="bookRecommendationTableView" destination="X2K-mF-Dm7" id="886-GN-fWh"/>
                 <outlet property="bookTitleLabel" destination="vWW-4n-j1e" id="YtS-Gp-D4m"/>
+                <outlet property="readDescriptionButton" destination="pLj-qU-5e6" id="mWE-09-g3Q"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,41 +24,43 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ox4-sb-DeE">
-                    <rect key="frame" x="10" y="54" width="120" height="160"/>
+                    <rect key="frame" x="10" y="54" width="120" height="180"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="160" id="d8l-kB-gdZ"/>
+                        <constraint firstAttribute="height" constant="180" id="d8l-kB-gdZ"/>
                         <constraint firstAttribute="width" constant="120" id="daK-jY-blx"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgR-Or-eAV">
-                    <rect key="frame" x="140" y="83.666666666666671" width="278" height="18"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <rect key="frame" x="140" y="82" width="278" height="14.333333333333329"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                    <color key="textColor" systemColor="systemGrayColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWW-4n-j1e">
+                    <rect key="frame" x="140" y="54" width="278" height="23"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWW-4n-j1e">
-                    <rect key="frame" x="140" y="53.999999999999993" width="278" height="24.666666666666664"/>
-                    <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="22"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="X2K-mF-Dm7">
-                    <rect key="frame" x="0.0" y="261.66666666666669" width="428" height="630.33333333333326"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="106" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="X2K-mF-Dm7">
+                    <rect key="frame" x="0.0" y="279.33333333333331" width="428" height="612.66666666666674"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Books similar to this " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EG5-Fl-uN5">
-                    <rect key="frame" x="10" y="234" width="180" height="22.666666666666686"/>
-                    <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="20"/>
+                    <rect key="frame" x="10" y="254.00000000000003" width="168" height="20.333333333333343"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLj-qU-5e6">
-                    <rect key="frame" x="140" y="184" width="278" height="30"/>
+                    <rect key="frame" x="140" y="204" width="278" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="250-wi-Yfd"/>
                     </constraints>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="filled" title="Read Description"/>
+                    <buttonConfiguration key="configuration" style="filled" title="Read More">
+                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
+                    </buttonConfiguration>
                     <connections>
                         <action selector="openDescription:" destination="-1" eventType="touchUpInside" id="7kX-bJ-36A"/>
                     </connections>
@@ -91,6 +93,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

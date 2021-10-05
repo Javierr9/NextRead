@@ -9,12 +9,14 @@ import UIKit
 
 class BookLibraryViewController: UIViewController {
 
-    @IBOutlet weak var librarySwitch: UISwitch!
     @IBOutlet weak var booksTableView: UITableView!
     @IBOutlet weak var booksCollectionView: UICollectionView!
+    @IBOutlet weak var changeLayoutButton: UIButton!
+    @IBOutlet weak var sortButton: UIButton!
     
     private let bookLibraryViewModel = BookLibraryViewModel()
     private var thumbnailDatas:[ThumbnailDataModel] = []
+    private let spacing: CGFloat = 18.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +27,8 @@ class BookLibraryViewController: UIViewController {
         bookLibraryViewModel.getFavoritedBooks()
     }
     
-    @IBAction func switchDidChanged(_ sender: UISwitch) {
-        if sender.isOn{
+    @IBAction func toggleTableViewPressed(_ sender: UIButton) {
+        if sender.isSelected{
             booksTableView.isHidden = true
             booksCollectionView.isHidden = false
         }else{
@@ -35,7 +37,9 @@ class BookLibraryViewController: UIViewController {
         }
     }
     
-   
+    @IBAction func sortMenuOpened(_ sender: Any) {
+        presentSortModal()
+    }
 }
 
 fileprivate extension BookLibraryViewController{
@@ -45,7 +49,14 @@ fileprivate extension BookLibraryViewController{
          setupNavigation()
          setupTableView()
          setupCollectionView()
+         setupButton()
      }
+    
+    
+    func setupButton(){
+        changeLayoutButton.setTitle("", for: .normal)
+        changeLayoutButton.changesSelectionAsPrimaryAction = true
+    }
     
     func setupCollectionView(){
         booksCollectionView.register(BooksCollectionViewCell.getNib(), forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
@@ -60,7 +71,7 @@ fileprivate extension BookLibraryViewController{
          booksTableView.delegate = self
      }
     func setupNavigation(){
-        title = "Book Library"
+        title = "Library"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
     }
@@ -77,6 +88,10 @@ fileprivate extension BookLibraryViewController{
             self.booksTableView.reloadData()
             self.booksCollectionView.reloadData()
         }
+    }
+    
+    func presentSortModal(){
+        
     }
     
     

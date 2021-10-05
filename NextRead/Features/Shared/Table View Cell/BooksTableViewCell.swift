@@ -25,6 +25,7 @@ class BooksTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        setupView()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -48,6 +49,14 @@ extension BooksTableViewCell{
 
 fileprivate extension BooksTableViewCell{
     
+    func setupView(){
+        setupImageView()
+    }
+    
+    func setupImageView(){
+        bookImageView.layer.cornerRadius = 2
+        bookImageView.clipsToBounds = true
+    }
     func setCellData(){
         guard let data = thumbnailData else {return}
 

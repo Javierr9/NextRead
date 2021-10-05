@@ -20,6 +20,7 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var bookAuthorLabel: UILabel!
     @IBOutlet weak var bookRecommendationTableView: UITableView!
+    @IBOutlet weak var readDescriptionButton: UIButton!
     
     private var bookDetailViewModel = BookDetailViewModel()
     private var addButtonStatus: AddButtonStatus?
@@ -53,6 +54,18 @@ fileprivate extension BookDetailViewController{
         setupNavigation()
         subscribeViewModel()
         setupTableView()
+        setupButton()
+        setupImageView()
+    }
+    
+    func setupImageView(){
+        bookImageView.layer.cornerRadius = 4
+        bookImageView.clipsToBounds = true
+    }
+    
+    func setupButton(){
+        readDescriptionButton.layer.cornerRadius = 15
+        readDescriptionButton.clipsToBounds = true
     }
     
     func setupTableView(){
@@ -69,9 +82,6 @@ fileprivate extension BookDetailViewController{
     
     func loadDetailsData(){
         bookDetail = bookDetailViewModel.bookDetail
-        
-        
-        //TODO: Check book exist if book already exist in that than change the navigation menu button to something else
         
         setupBarButtonItem()
         DispatchQueue.main.async {
@@ -161,12 +171,23 @@ fileprivate extension BookDetailViewController{
     
     func openBookDescription(){
         let vc = BookDescriptionViewController()
-
+        
         guard let description = bookDetail?.volumeInfo?.description else {return}
         vc.bookDescription = description
 
-        let navigation = UINavigationController(rootViewController: vc)
-        self.navigationController?.present(navigation, animated: true, completion: nil)
+//        let navigation = UINavigationController(rootViewController: vc)
+//        self.navigationController?.present(navigation, animated: true, completion: nil)
+        
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+//            sheet.detents = [.medium()]
+            sheet.largestUndimmedDetentIdentifier = .none
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersEdgeAttachedInCompactHeight = true
+            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+        }
+        
+        present(vc, animated:  true, completion: nil)
     }
     
 }
