@@ -149,18 +149,25 @@ extension BookLibraryViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let action = UIContextualAction(style: .destructive, title: "Delete") { contextualAction, view, completionHandler in
-            guard let id = self.thumbnailDatas[indexPath.row].id else {return}
-            self.bookLibraryViewModel.deleteBookFromFavorite(byId: id)
+        if indexPath.row != 0 {
+            let action = UIContextualAction(style: .destructive, title: "Delete") { contextualAction, view, completionHandler in
+                guard let id = self.thumbnailDatas[indexPath.row - 1].id else {return}
+                self.bookLibraryViewModel.deleteBookFromFavorite(byId: id)
+            }
+            return UISwipeActionsConfiguration(actions: [action])
+        }else{
+            return UISwipeActionsConfiguration()
         }
-        return UISwipeActionsConfiguration(actions: [action])
+     
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewController = BookDetailViewController()
-        viewController.bookId = thumbnailDatas[indexPath.row].id
-        self.navigationController?.pushViewController(viewController, animated: true)
+        if indexPath.row != 0 {
+            let viewController = BookDetailViewController()
+            viewController.bookId = thumbnailDatas[indexPath.row - 1].id
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+
         
     }
     
