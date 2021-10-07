@@ -6,9 +6,10 @@
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isRecent" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="smallThumbnail" optional="YES" attributeType="String"/>
+        <attribute name="thumbnail" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Book" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="Book" positionX="-63" positionY="-18" width="128" height="134"/>
     </elements>
 </model>

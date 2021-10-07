@@ -49,7 +49,7 @@ fileprivate extension BookViewModel{
         var thumbnailTemporaryData: [ThumbnailDataModel] = []
         guard let dataResponse = dataFromAPI?.data else {return}
         for data in dataResponse{
-            thumbnailTemporaryData.append(ThumbnailDataModel(id: data.id, title: data.volumeInfo?.title, authors: data.volumeInfo?.authors, smallThumbnail: data.volumeInfo?.imageLinks?.smallThumbnail))
+            thumbnailTemporaryData.append(ThumbnailDataModel(id: data.id, title: data.volumeInfo?.title, authors: data.volumeInfo?.authors, smallThumbnail: data.volumeInfo?.imageLinks?.smallThumbnail, thumbnail: data.volumeInfo?.imageLinks?.thumbnail))
         }
         thumbnailDatas = thumbnailTemporaryData
     }

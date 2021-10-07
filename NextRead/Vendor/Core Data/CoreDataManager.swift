@@ -113,6 +113,7 @@ extension CoreDataManager{
             book.authors = model.volumeInfo?.authors
             book.isFavorite = true
             book.smallThumbnail = model.volumeInfo?.imageLinks?.smallThumbnail
+            book.thumbnail = model.volumeInfo?.imageLinks?.thumbnail
             //book.isRecent = true sih harusnya
             do{
                 try managedObjectContext.save()
@@ -136,6 +137,7 @@ extension CoreDataManager{
             bookToBeSaved.title = book.title
             bookToBeSaved.isFavorite = true
             bookToBeSaved.smallThumbnail = book.smallThumbnail
+            bookToBeSaved.thumbnail = book.thumbnail
             //book.isRecent = true sih harusnya
             do{
                 try managedObjectContext.save()

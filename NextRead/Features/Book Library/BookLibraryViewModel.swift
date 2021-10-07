@@ -44,7 +44,7 @@ fileprivate extension BookLibraryViewModel{
         thumbnailDatas = []
         guard let books = setOfBooks else {return}
         for book in books{
-            thumbnailDatas?.append(ThumbnailDataModel(id: book.id, title: book.title, authors: book.authors, smallThumbnail: book.smallThumbnail))
+            thumbnailDatas?.append(ThumbnailDataModel(id: book.id, title: book.title, authors: book.authors, smallThumbnail: book.smallThumbnail, thumbnail: book.thumbnail))
         }
     }
 }

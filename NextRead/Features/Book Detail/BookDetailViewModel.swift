@@ -62,7 +62,6 @@ class BookDetailViewModel: NSObject{
     func fetchBookRecommendations(usingId id:String){
         service.requestSimilarBookFromApiWith(bookId: id) { bookRecommendation in
             self.recommendedBookIds = bookRecommendation
-            print("book detail view model data is setting up thumbnail datas")
             self.fetchThumbnailDatasFromIdArray()
         }
     }
@@ -75,10 +74,8 @@ fileprivate extension BookDetailViewModel{
         guard let bookIds = recommendedBookIds else {return}
         for bookId in bookIds{
             guard let recommendedBookId = bookId.id else {return}
-            print("this is the current book id \(recommendedBookId)")
             service.requestBookFromApiWith(bookId: recommendedBookId) { bookDataModel in
-                temporaryData.append(ThumbnailDataModel(id: bookDataModel.id, title: bookDataModel.volumeInfo?.title, authors: bookDataModel.volumeInfo?.authors, smallThumbnail: bookDataModel.volumeInfo?.imageLinks?.smallThumbnail))
-                print(bookDataModel)
+                temporaryData.append(ThumbnailDataModel(id: bookDataModel.id, title: bookDataModel.volumeInfo?.title, authors: bookDataModel.volumeInfo?.authors, smallThumbnail: bookDataModel.volumeInfo?.imageLinks?.smallThumbnail, thumbnail: bookDataModel.volumeInfo?.imageLinks?.thumbnail))
                 self.recommendationThumbnailDatas = temporaryData
             }
         }

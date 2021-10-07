@@ -8,13 +8,25 @@
 import UIKit
 
 class BookLibraryViewController: UIViewController {
-
-    @IBOutlet weak var librarySwitch: UISwitch!
+    
     @IBOutlet weak var booksTableView: UITableView!
     @IBOutlet weak var booksCollectionView: UICollectionView!
+    @IBOutlet weak var changeLayoutButton: UIButton!
+    @IBOutlet weak var sortButton: UIButton!
     
     private let bookLibraryViewModel = BookLibraryViewModel()
     private var thumbnailDatas:[ThumbnailDataModel] = []
+    private let spacing: CGFloat = 18.0
+    
+    private let sortByTitle = { (action: UIAction) in
+        
+    }
+    
+    private let sortByRecent = { (action: UIAction) in
+        
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +37,8 @@ class BookLibraryViewController: UIViewController {
         bookLibraryViewModel.getFavoritedBooks()
     }
     
-    @IBAction func switchDidChanged(_ sender: UISwitch) {
-        if sender.isOn{
+    @IBAction func toggleTableViewPressed(_ sender: UIButton) {
+        if sender.isSelected{
             booksTableView.isHidden = true
             booksCollectionView.isHidden = false
         }else{
@@ -35,17 +47,38 @@ class BookLibraryViewController: UIViewController {
         }
     }
     
-   
+    @IBAction func sortMenuOpened(_ sender: Any) {
+        presentSortModal()
+    }
+    
 }
 
 fileprivate extension BookLibraryViewController{
-     
-     func setupView(){
-         subscribeViewModel()
-         setupNavigation()
-         setupTableView()
-         setupCollectionView()
-     }
+    
+    func setupView(){
+        subscribeViewModel()
+        setupNavigation()
+        setupTableView()
+        setupCollectionView()
+        setupButton()
+    }
+    
+    
+    func setupButton(){
+        changeLayoutButton.setTitle("", for: .normal)
+        changeLayoutButton.changesSelectionAsPrimaryAction = true
+        
+        self.sortButton.setTitle("berubah laaa", for: .normal)
+        sortButton.menu = UIMenu(children: [
+            UIAction(title: "Recent", handler: sortByRecent),
+            UIAction(title: "Title ", handler: sortByTitle),
+        ])
+        
+        sortButton.changesSelectionAsPrimaryAction = true
+        sortButton.showsMenuAsPrimaryAction = true
+    }
+    
+    
     
     func setupCollectionView(){
         booksCollectionView.register(BooksCollectionViewCell.getNib(), forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
@@ -53,23 +86,24 @@ fileprivate extension BookLibraryViewController{
         booksCollectionView.delegate = self
         
     }
-     
-     func setupTableView(){
-         booksTableView.register(BooksTableViewCell.getNib(), forCellReuseIdentifier: BooksTableViewCell.identifier)
-         booksTableView.dataSource = self
-         booksTableView.delegate = self
-     }
+    
+    func setupTableView(){
+        booksTableView.register(BooksTableViewCell.getNib(), forCellReuseIdentifier: BooksTableViewCell.identifier)
+        booksTableView.dataSource = self
+        booksTableView.delegate = self
+    }
     func setupNavigation(){
-        title = "Book Library"
+        title = "Library"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.largeTitleTextAttributes = [.font:  UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle).withDesign(.serif)!.withSymbolicTraits(.traitBold)!, size: 34)]
     }
     
-     func subscribeViewModel(){
-         bookLibraryViewModel.bindBookLibraryViewModelToController = {
-             self.bindData()
-         }
-     }
+    func subscribeViewModel(){
+        bookLibraryViewModel.bindBookLibraryViewModelToController = {
+            self.bindData()
+        }
+    }
     
     func bindData(){
         thumbnailDatas = bookLibraryViewModel.thumbnailDatas ?? []
@@ -77,6 +111,10 @@ fileprivate extension BookLibraryViewController{
             self.booksTableView.reloadData()
             self.booksCollectionView.reloadData()
         }
+    }
+    
+    func presentSortModal(){
+        
     }
     
     
@@ -112,7 +150,7 @@ extension BookLibraryViewController: UITableViewDelegate, UITableViewDataSource{
     }
 }
 
-extension BookLibraryViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension BookLibraryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -125,10 +163,23 @@ extension BookLibraryViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BooksCollectionViewCell.identifier, for: indexPath) as! BooksCollectionViewCell
         
-        cell.titleLabel.text = thumbnailDatas[indexPath.row].title
+        cell.thumbnailData = thumbnailDatas[indexPath.row]
         
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewController = BookDetailViewController()
+        viewController.bookId = thumbnailDatas[indexPath.row].id
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    
+    //TODO: Rezie the collection
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
+
+        let inset:CGFloat = 40
+        return UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 40)
+    }
     
 }
