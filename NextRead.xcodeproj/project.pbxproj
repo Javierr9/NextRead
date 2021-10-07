@@ -18,6 +18,8 @@
 		3B2629DB26F063C9001F39A4 /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2629DA26F063C9001F39A4 /* BookModel.swift */; };
 		3B3D9275270DB05600FCBFC8 /* Book+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D9273270DB05600FCBFC8 /* Book+CoreDataClass.swift */; };
 		3B3D9276270DB05600FCBFC8 /* Book+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D9274270DB05600FCBFC8 /* Book+CoreDataProperties.swift */; };
+		3B3D929D270F1C5800FCBFC8 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D929B270F1C5700FCBFC8 /* SettingsTableViewCell.swift */; };
+		3B3D929E270F1C5800FCBFC8 /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B3D929C270F1C5700FCBFC8 /* SettingsTableViewCell.xib */; };
 		3B3F630B270992A8000F517D /* BooksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3F6309270992A8000F517D /* BooksCollectionViewCell.swift */; };
 		3B3F630C270992A8000F517D /* BooksCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F630A270992A8000F517D /* BooksCollectionViewCell.xib */; };
 		3B3F630E2709C732000F517D /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3F630D2709C732000F517D /* Extension+String.swift */; };
@@ -50,6 +52,8 @@
 		3B2629DA26F063C9001F39A4 /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		3B3D9273270DB05600FCBFC8 /* Book+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3B3D9274270DB05600FCBFC8 /* Book+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3B3D929B270F1C5700FCBFC8 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		3B3D929C270F1C5700FCBFC8 /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
 		3B3F6309270992A8000F517D /* BooksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B3F630A270992A8000F517D /* BooksCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BooksCollectionViewCell.xib; sourceTree = "<group>"; };
 		3B3F630D2709C732000F517D /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
@@ -192,6 +196,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3B3D929A270F1C1600FCBFC8 /* Table View Settings Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3B3D929B270F1C5700FCBFC8 /* SettingsTableViewCell.swift */,
+				3B3D929C270F1C5700FCBFC8 /* SettingsTableViewCell.xib */,
+			);
+			path = "Table View Settings Cell";
+			sourceTree = "<group>";
+		};
 		3B3F6306270991F6000F517D /* Collection View Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +262,7 @@
 		3BCB8BD826F8DD80004F6659 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				3B3D929A270F1C1600FCBFC8 /* Table View Settings Cell */,
 				3B3F6306270991F6000F517D /* Collection View Cell */,
 				3B2629BD26EFA9A5001F39A4 /* Table View Cell */,
 			);
@@ -340,6 +354,7 @@
 				3B588069270409C800EAC39F /* BookDescriptionViewController.xib in Resources */,
 				3B3F630C270992A8000F517D /* BooksCollectionViewCell.xib in Resources */,
 				3B77A6CB26EC874300DC3CFF /* LaunchScreen.storyboard in Resources */,
+				3B3D929E270F1C5800FCBFC8 /* SettingsTableViewCell.xib in Resources */,
 				3B12D9C926EDBD9200FA118E /* BookLibraryViewController.xib in Resources */,
 				3B77A6C826EC874300DC3CFF /* Assets.xcassets in Resources */,
 				3B7F736F26F9FC85001E7D33 /* BookDetailViewController.xib in Resources */,
@@ -361,6 +376,7 @@
 				3B77A6C626EC874200DC3CFF /* NextRead.xcdatamodeld in Sources */,
 				3B7F736926F9E77A001E7D33 /* CoreDataManager.swift in Sources */,
 				3B3D9276270DB05600FCBFC8 /* Book+CoreDataProperties.swift in Sources */,
+				3B3D929D270F1C5800FCBFC8 /* SettingsTableViewCell.swift in Sources */,
 				3B2629CC26EFC803001F39A4 /* NetworkRequest.swift in Sources */,
 				3BE41A5526FC998B0004FD81 /* BookDetailViewModel.swift in Sources */,
 				3B3F630B270992A8000F517D /* BooksCollectionViewCell.swift in Sources */,
