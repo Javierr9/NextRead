@@ -30,6 +30,7 @@ fileprivate extension RootViewController{
         title = "Next Read"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.largeTitleTextAttributes = [.font:  UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle).withDesign(.serif)!.withSymbolicTraits(.traitBold)!, size: 34)]
     }
     
     func setupTableView(){

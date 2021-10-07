@@ -2,7 +2,7 @@
 //  Book+CoreDataProperties.swift
 //  NextRead
 //
-//  Created by Javier Fransiscus on 01/10/21.
+//  Created by Javier Fransiscus on 06/10/21.
 //
 //
 
@@ -22,6 +22,7 @@ extension Book {
     @NSManaged public var isRecent: Bool
     @NSManaged public var smallThumbnail: String?
     @NSManaged public var title: String?
+    @NSManaged public var thumbnail: String?
 
 }
 

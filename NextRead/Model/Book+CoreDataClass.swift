@@ -2,7 +2,7 @@
 //  Book+CoreDataClass.swift
 //  NextRead
 //
-//  Created by Javier Fransiscus on 01/10/21.
+//  Created by Javier Fransiscus on 06/10/21.
 //
 //
 

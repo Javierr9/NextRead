@@ -165,7 +165,6 @@ fileprivate extension BookDetailViewController{
     
     @objc
     func bookDetailTapped(){
-        print("this is tapped")
         bookDetailViewModel.fetchBookRecommendations(usingId: bookId ?? "")
     }
     
