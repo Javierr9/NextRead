@@ -58,6 +58,7 @@ fileprivate extension RootViewController{
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Titles"
+        
     }
     
     func bindData(){
@@ -68,19 +69,31 @@ fileprivate extension RootViewController{
         
     }
     
+    @objc func reloadBookViewModelSearch(){
+                guard let query = searchController.searchBar.text else {return}
+        
+                bookViewModel.fetchDataWithQuery(query: query)
+    }
+    
 }
 
-extension RootViewController: UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating{
+extension RootViewController: UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate{
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let query = searchController.searchBar.text else {return}
+
         
-        bookViewModel.fetchDataWithQuery(query: query)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.reloadBookViewModelSearch), object: nil)
+        self.perform(#selector(self.reloadBookViewModelSearch), with: nil, afterDelay: 0.5)
     }
+    
+// SVProgressHUD
+//    NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: "reload", object: nil)
+//        self.performSelector("reload", withObject: nil, afterDelay: 0.5)
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return thumbnailDatas.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

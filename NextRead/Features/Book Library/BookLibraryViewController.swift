@@ -136,6 +136,12 @@ extension BookLibraryViewController: UITableViewDelegate, UITableViewDataSource{
         if indexPath.row == 0 {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.identifier, for: indexPath) as! SettingsTableViewCell
+            cell.updateBookListRecent = {
+                print("closure working")
+            }
+            cell.delegate = self
+            
+            
             return cell
           
         }else{
@@ -226,3 +232,13 @@ extension BookLibraryViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
 }
+
+
+extension BookLibraryViewController: SettingsTableViewDelegate{
+    func sortBookByRecentProtocolFunction() {
+        print("protocol function working")
+    }
+    
+    
+}
+

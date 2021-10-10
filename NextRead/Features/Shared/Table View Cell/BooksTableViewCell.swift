@@ -59,7 +59,6 @@ fileprivate extension BooksTableViewCell{
     }
     func setCellData(){
         guard let data = thumbnailData else {return}
-
         guard let thumbnailImage = data.smallThumbnail else {return}
         if let imageURL = URL(string: thumbnailImage){
             bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: [], completed: nil)
