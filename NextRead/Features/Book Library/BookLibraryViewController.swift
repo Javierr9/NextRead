@@ -137,7 +137,7 @@ extension BookLibraryViewController: UITableViewDelegate, UITableViewDataSource{
             
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.identifier, for: indexPath) as! SettingsTableViewCell
             cell.updateBookListRecent = {
-                print("closure working")
+                self.bookLibraryViewModel.getFavoritedBooks(sortBy: .date)
             }
             cell.delegate = self
             
@@ -211,7 +211,6 @@ extension BookLibraryViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     
-    //TODO: Rezie the collection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let yourWidth = (collectionView.bounds.width/2.0) - 15
         let yourHeight = yourWidth * 1.46
@@ -237,6 +236,7 @@ extension BookLibraryViewController: UICollectionViewDelegate, UICollectionViewD
 extension BookLibraryViewController: SettingsTableViewDelegate{
     func sortBookByRecentProtocolFunction() {
         print("protocol function working")
+        bookLibraryViewModel.getFavoritedBooks(sortBy: .alphabet)
     }
     
     

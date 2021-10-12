@@ -6,6 +6,5 @@ target 'NextRead' do
   use_frameworks!
 
   # Pods for NextRead
-pod "ExpandableLabel"
 
 end

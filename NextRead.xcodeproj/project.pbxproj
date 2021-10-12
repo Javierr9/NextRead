@@ -38,6 +38,9 @@
 		3B7F736926F9E77A001E7D33 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F736826F9E77A001E7D33 /* CoreDataManager.swift */; };
 		3B7F736E26F9FC85001E7D33 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F736C26F9FC85001E7D33 /* BookDetailViewController.swift */; };
 		3B7F736F26F9FC85001E7D33 /* BookDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B7F736D26F9FC85001E7D33 /* BookDetailViewController.xib */; };
+		3B8CFA8E271334A2008E3CA9 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8CFA8C271334A2008E3CA9 /* DetailViewController.swift */; };
+		3B8CFA8F271334A2008E3CA9 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B8CFA8D271334A2008E3CA9 /* DetailViewController.xib */; };
+		3B8CFA972713EE1F008E3CA9 /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8CFA962713EE1F008E3CA9 /* ExpandableLabel.swift */; };
 		3BE41A5526FC998B0004FD81 /* BookDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE41A5426FC998A0004FD81 /* BookDetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,7 +77,12 @@
 		3B7F736826F9E77A001E7D33 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		3B7F736C26F9FC85001E7D33 /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
 		3B7F736D26F9FC85001E7D33 /* BookDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookDetailViewController.xib; sourceTree = "<group>"; };
+		3B8CFA8C271334A2008E3CA9 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		3B8CFA8D271334A2008E3CA9 /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		3B8CFA962713EE1F008E3CA9 /* ExpandableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
 		3BE41A5426FC998A0004FD81 /* BookDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewModel.swift; sourceTree = "<group>"; };
+		711DB5409E3C58F7586B7685 /* Pods-NextRead.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NextRead.debug.xcconfig"; path = "Target Support Files/Pods-NextRead/Pods-NextRead.debug.xcconfig"; sourceTree = "<group>"; };
+		78B17AD8C2A32CF0B4EC0846 /* Pods-NextRead.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NextRead.release.xcconfig"; path = "Target Support Files/Pods-NextRead/Pods-NextRead.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +164,7 @@
 		3B2629CE26F0590C001F39A4 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				3B8CFA952713EDFE008E3CA9 /* Custom Class */,
 				3B7F736426F9E2F3001E7D33 /* Core Data */,
 				3B2629B826EF9106001F39A4 /* Resources */,
 				3B2629B726EF90F2001F39A4 /* App */,
@@ -228,6 +237,8 @@
 			children = (
 				3B77A6BA26EC874200DC3CFF /* NextRead */,
 				3B77A6B926EC874200DC3CFF /* Products */,
+				B690D0921AAB65CAB9815219 /* Pods */,
+				A2A70D32B280D61E47C83A43 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -259,6 +270,23 @@
 			path = "Core Data";
 			sourceTree = "<group>";
 		};
+		3B8CFA89271333A6008E3CA9 /* Book Detail Scrollable */ = {
+			isa = PBXGroup;
+			children = (
+				3B8CFA8C271334A2008E3CA9 /* DetailViewController.swift */,
+				3B8CFA8D271334A2008E3CA9 /* DetailViewController.xib */,
+			);
+			path = "Book Detail Scrollable";
+			sourceTree = "<group>";
+		};
+		3B8CFA952713EDFE008E3CA9 /* Custom Class */ = {
+			isa = PBXGroup;
+			children = (
+				3B8CFA962713EE1F008E3CA9 /* ExpandableLabel.swift */,
+			);
+			path = "Custom Class";
+			sourceTree = "<group>";
+		};
 		3BCB8BD826F8DD80004F6659 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +300,7 @@
 		3BCB8BDD26F8E410004F6659 /* Book Detail */ = {
 			isa = PBXGroup;
 			children = (
+				3B8CFA89271333A6008E3CA9 /* Book Detail Scrollable */,
 				3B6675892701EBB200B56F87 /* Book Description */,
 				3B7F736C26F9FC85001E7D33 /* BookDetailViewController.swift */,
 				3B7F736D26F9FC85001E7D33 /* BookDetailViewController.xib */,
@@ -288,6 +317,22 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		A2A70D32B280D61E47C83A43 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B690D0921AAB65CAB9815219 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				711DB5409E3C58F7586B7685 /* Pods-NextRead.debug.xcconfig */,
+				78B17AD8C2A32CF0B4EC0846 /* Pods-NextRead.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -295,6 +340,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3B77A6CF26EC874300DC3CFF /* Build configuration list for PBXNativeTarget "NextRead" */;
 			buildPhases = (
+				C77BE7EA07D9D1461098E1C6 /* [CP] Check Pods Manifest.lock */,
 				3B77A6B426EC874200DC3CFF /* Sources */,
 				3B77A6B526EC874200DC3CFF /* Frameworks */,
 				3B77A6B626EC874200DC3CFF /* Resources */,
@@ -358,12 +404,38 @@
 				3B12D9C926EDBD9200FA118E /* BookLibraryViewController.xib in Resources */,
 				3B77A6C826EC874300DC3CFF /* Assets.xcassets in Resources */,
 				3B7F736F26F9FC85001E7D33 /* BookDetailViewController.xib in Resources */,
+				3B8CFA8F271334A2008E3CA9 /* DetailViewController.xib in Resources */,
 				3B77A6D526ECE64900DC3CFF /* RootViewController.xib in Resources */,
 				3B2629C326EFA9FC001F39A4 /* BooksTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C77BE7EA07D9D1461098E1C6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NextRead-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3B77A6B426EC874200DC3CFF /* Sources */ = {
@@ -372,6 +444,7 @@
 			files = (
 				3B3F630E2709C732000F517D /* Extension+String.swift in Sources */,
 				3B2629DB26F063C9001F39A4 /* BookModel.swift in Sources */,
+				3B8CFA8E271334A2008E3CA9 /* DetailViewController.swift in Sources */,
 				3B3F63102709EB41000F517D /* BookRecommendationDataModel.swift in Sources */,
 				3B77A6C626EC874200DC3CFF /* NextRead.xcdatamodeld in Sources */,
 				3B7F736926F9E77A001E7D33 /* CoreDataManager.swift in Sources */,
@@ -389,6 +462,7 @@
 				3B7F736726F9E676001E7D33 /* BookLibraryViewModel.swift in Sources */,
 				3B2629D526F05D61001F39A4 /* BookViewModel.swift in Sources */,
 				3B77A6BE26EC874200DC3CFF /* SceneDelegate.swift in Sources */,
+				3B8CFA972713EE1F008E3CA9 /* ExpandableLabel.swift in Sources */,
 				3B2629D726F0610B001F39A4 /* Constant.swift in Sources */,
 				3B12D9C826EDBD9200FA118E /* BookLibraryViewController.swift in Sources */,
 				3B2629C226EFA9FC001F39A4 /* BooksTableViewCell.swift in Sources */,
@@ -527,6 +601,7 @@
 		};
 		3B77A6D026EC874300DC3CFF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 711DB5409E3C58F7586B7685 /* Pods-NextRead.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -546,6 +621,7 @@
 		};
 		3B77A6D126EC874300DC3CFF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78B17AD8C2A32CF0B4EC0846 /* Pods-NextRead.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

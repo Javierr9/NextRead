@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum SortBy{
+    case alphabet
+    case date
+}
+
+
 class BookLibraryViewModel: NSObject{
     
     private var coreDataManager:CoreDataManager!
@@ -35,6 +41,19 @@ class BookLibraryViewModel: NSObject{
     func deleteBookFromFavorite(byId id: String){
         coreDataManager.deleteFavorite(byBookID: id)
         getFavoritedBooks()
+    }
+    
+    func getFavoritedBooks(sortBy: SortBy) {
+        switch sortBy {
+        case .alphabet:
+            print("sortByAlphabets")
+           setOfBooks = coreDataManager.fetchFavoriteSortedAlphabetically()
+            setupThumbnailDatas()
+        default:
+           getFavoritedBooks()
+            setOfBooks = coreDataManager.fetchFavorite()
+            setupThumbnailDatas()
+        }
     }
 }
 
