@@ -102,7 +102,33 @@ extension CoreDataManager{
         
     }
     
+    func fetchFavoriteSortedAlphabetically() -> [Book]?{
+        do{
+            let request = Book.fetchRequest() as NSFetchRequest<Book>
+            let predicate = NSPredicate(format: "isFavorite = %d", true)
+            let bookTitleSort = NSSortDescriptor(key: "title", ascending: true)
+            request.predicate = predicate
+            request.sortDescriptors = [bookTitleSort]
+            let books = try managedObjectContext.fetch(request)
+            return books
+        }catch{
+            print("\(error.localizedDescription)")
+            fatalError()
+        }
+    }
     
+    func fetchFavoriteSortedRecetly() -> [Book]?{
+        do{
+            let request = Book.fetchRequest() as NSFetchRequest<Book>
+            let predicate = NSPredicate(format: "isFavorite = %d", true)
+            request.predicate = predicate
+            let books = try managedObjectContext.fetch(request)
+            return books
+        }catch{
+            print("\(error.localizedDescription)")
+            fatalError()
+        }
+    }
     func addFavorite(using model: BookDataModel){
         //Filter if book dont have then add
         guard let id = model.id else {return}

@@ -14,16 +14,22 @@ enum AddButtonStatus{
     case unlike
 }
 
+//TODO: Scroll view on scroll close the bar, remake the font
+//TODO: Add more information near the view
+//TODO: Fix the scroll view
+//TODO: Clean the code this needs to be done within this week. 
 class BookDetailViewController: UIViewController {
-    //TODO: Fix entry point from every book library and book search
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var bookAuthorLabel: UILabel!
     @IBOutlet weak var bookRecommendationTableView: UITableView!
-    @IBOutlet weak var readDescriptionButton: UIButton!
+//    @IBOutlet weak var readDescriptionButton: UIButton!
+    @IBOutlet weak var bookDetailScrollView: UIScrollView!
+    @IBOutlet weak var bookDescriptionLabel: ExpandableLabel!
     
     private var bookDetailViewModel = BookDetailViewModel()
     private var addButtonStatus: AddButtonStatus?
+    
     
     var bookId: String?
     var bookDetail:BookDataModel?
@@ -34,6 +40,7 @@ class BookDetailViewController: UIViewController {
         setupView()
         
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavigation()
@@ -46,6 +53,17 @@ class BookDetailViewController: UIViewController {
     
 }
 
+extension BookDetailViewController: UIScrollViewDelegate{
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if bookDescriptionLabel.isExpanded {
+//            let contentRect: CGRect = scrollView.subviews.reduce(into: .zero) { rect, view in
+//                rect = rect.union(view.frame)
+//            }
+//            scrollView.contentSize = contentRect.size
+        }
+    }
+}
 
 fileprivate extension BookDetailViewController{
     
@@ -54,8 +72,12 @@ fileprivate extension BookDetailViewController{
         setupNavigation()
         subscribeViewModel()
         setupTableView()
-        setupButton()
         setupImageView()
+        setupScrollView()
+    }
+     
+    func setupScrollView(){
+        bookDetailScrollView.delegate = self
     }
     
     func setupImageView(){
@@ -63,10 +85,7 @@ fileprivate extension BookDetailViewController{
         bookImageView.clipsToBounds = true
     }
     
-    func setupButton(){
-        readDescriptionButton.layer.cornerRadius = 15
-        readDescriptionButton.clipsToBounds = true
-    }
+
     
     func setupTableView(){
         bookRecommendationTableView.register(BooksTableViewCell.getNib(), forCellReuseIdentifier: BooksTableViewCell.identifier)
@@ -113,7 +132,12 @@ fileprivate extension BookDetailViewController{
             bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: [], completed: nil)
         }
         bookTitleLabel.text = bookDetail.volumeInfo?.title
-        bookAuthorLabel.text = bookDetail.volumeInfo?.authors?.first ?? "Authors not available"
+        guard let authorsName = bookDetail.volumeInfo?.authors else {return}
+        let authorsNameText = authorsName.joined(separator: ",")
+
+        bookAuthorLabel.text = authorsNameText != "" ? authorsNameText : "No authors"
+        bookDescriptionLabel.text = bookDetail.volumeInfo?.description?.htmlToString
+        
     }
     
     
@@ -144,7 +168,7 @@ fileprivate extension BookDetailViewController{
             default:
                 self.navigationItem.rightBarButtonItems = [unlikeButton, infoButton]
             }
-        }
+        }   
         
     }
     
@@ -215,3 +239,5 @@ extension BookDetailViewController: UITableViewDelegate, UITableViewDataSource{
     
     
 }
+
+

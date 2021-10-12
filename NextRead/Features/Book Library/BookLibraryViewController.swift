@@ -68,7 +68,6 @@ fileprivate extension BookLibraryViewController{
         changeLayoutButton.setTitle("", for: .normal)
         changeLayoutButton.changesSelectionAsPrimaryAction = true
         
-        self.sortButton.setTitle("berubah laaa", for: .normal)
         sortButton.menu = UIMenu(children: [
             UIAction(title: "Recent", handler: sortByRecent),
             UIAction(title: "Title ", handler: sortByTitle),
@@ -84,11 +83,14 @@ fileprivate extension BookLibraryViewController{
         booksCollectionView.register(BooksCollectionViewCell.getNib(), forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
         booksCollectionView.dataSource = self
         booksCollectionView.delegate = self
+      
         
     }
     
     func setupTableView(){
         booksTableView.register(BooksTableViewCell.getNib(), forCellReuseIdentifier: BooksTableViewCell.identifier)
+        booksTableView.register(SettingsTableViewCell.getNib(), forCellReuseIdentifier: SettingsTableViewCell.identifier)
+
         booksTableView.dataSource = self
         booksTableView.delegate = self
     }
@@ -97,6 +99,8 @@ fileprivate extension BookLibraryViewController{
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.largeTitleTextAttributes = [.font:  UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle).withDesign(.serif)!.withSymbolicTraits(.traitBold)!, size: 34)]
+        navigationController?.navigationBar.titleTextAttributes = [.font:  UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle).withDesign(.serif)!.withSymbolicTraits(.traitBold)!, size: 17)]
+
     }
     
     func subscribeViewModel(){
@@ -124,29 +128,61 @@ extension BookLibraryViewController: UITableViewDelegate, UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return thumbnailDatas.count
+        return thumbnailDatas.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: BooksTableViewCell.identifier, for: indexPath) as! BooksTableViewCell
-        cell.thumbnailData = thumbnailDatas[indexPath.row]
-        return cell
+        
+        if indexPath.row == 0 {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.identifier, for: indexPath) as! SettingsTableViewCell
+            cell.updateBookListRecent = {
+                self.bookLibraryViewModel.getFavoritedBooks(sortBy: .date)
+            }
+            cell.delegate = self
+            
+            
+            return cell
+          
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: BooksTableViewCell.identifier, for: indexPath) as! BooksTableViewCell
+            cell.thumbnailData = thumbnailDatas[indexPath.row - 1]
+            return cell
+        }
+        
+      
+        
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let action = UIContextualAction(style: .destructive, title: "Delete") { contextualAction, view, completionHandler in
-            guard let id = self.thumbnailDatas[indexPath.row].id else {return}
-            self.bookLibraryViewModel.deleteBookFromFavorite(byId: id)
+        if indexPath.row != 0 {
+            let action = UIContextualAction(style: .destructive, title: "Delete") { contextualAction, view, completionHandler in
+                guard let id = self.thumbnailDatas[indexPath.row - 1].id else {return}
+                self.bookLibraryViewModel.deleteBookFromFavorite(byId: id)
+            }
+            return UISwipeActionsConfiguration(actions: [action])
+        }else{
+            return UISwipeActionsConfiguration()
         }
-        return UISwipeActionsConfiguration(actions: [action])
+     
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewController = BookDetailViewController()
-        viewController.bookId = thumbnailDatas[indexPath.row].id
-        self.navigationController?.pushViewController(viewController, animated: true)
+        if indexPath.row != 0 {
+            let viewController = BookDetailViewController()
+            viewController.bookId = thumbnailDatas[indexPath.row - 1].id
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+
         
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0{
+            return 44
+        }else{
+            return 106
+        }
     }
 }
 
@@ -175,11 +211,34 @@ extension BookLibraryViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     
-    //TODO: Rezie the collection
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let yourWidth = (collectionView.bounds.width/2.0) - 15
+        let yourHeight = yourWidth * 1.46
+        
+        return CGSize(width: yourWidth, height: yourHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
+    }
 
-        let inset:CGFloat = 40
-        return UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 40)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 15
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 30
     }
     
 }
+
+
+extension BookLibraryViewController: SettingsTableViewDelegate{
+    func sortBookByRecentProtocolFunction() {
+        print("protocol function working")
+        bookLibraryViewModel.getFavoritedBooks(sortBy: .alphabet)
+    }
+    
+    
+}
+

@@ -22,35 +22,11 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UE0-av-upf">
-                    <rect key="frame" x="370" y="49" width="44" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="44" id="DdK-kV-0CE"/>
-                        <constraint firstAttribute="width" constant="44" id="mPZ-hC-ofe"/>
-                    </constraints>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" image="square.grid.2x2" catalog="system"/>
-                    <state key="selected" image="list.bullet" catalog="system"/>
-                    <connections>
-                        <action selector="toggleTableViewPressed:" destination="-1" eventType="touchUpInside" id="3Oo-6W-oci"/>
-                    </connections>
-                </button>
-                <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gua-Cp-vJN">
-                    <rect key="frame" x="0.0" y="98" width="414" height="764"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="njA-KC-5xZ">
-                        <size key="itemSize" width="130" height="185"/>
-                        <size key="estimatedItemSize" width="130" height="185"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                </collectionView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="106" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7pi-WW-Zb1">
-                    <rect key="frame" x="0.0" y="98" width="414" height="764"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
-                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OH-MG-uol">
+                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OH-MG-uol">
                     <rect key="frame" x="10" y="61.5" width="97" height="19.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SORT BY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KaD-sT-H5K">
@@ -72,6 +48,29 @@
                         </button>
                     </subviews>
                 </stackView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UE0-av-upf">
+                    <rect key="frame" x="370" y="49" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="DdK-kV-0CE"/>
+                        <constraint firstAttribute="width" constant="44" id="mPZ-hC-ofe"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="square.grid.2x2" catalog="system"/>
+                    <state key="selected" image="list.bullet" catalog="system"/>
+                    <connections>
+                        <action selector="toggleTableViewPressed:" destination="-1" eventType="touchUpInside" id="3Oo-6W-oci"/>
+                    </connections>
+                </button>
+                <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gua-Cp-vJN">
+                    <rect key="frame" x="30" y="98" width="354" height="764"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="B2W-dR-Hdd">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -83,11 +82,11 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="7pi-WW-Zb1" secondAttribute="bottom" id="RKT-wq-blS"/>
                 <constraint firstItem="2OH-MG-uol" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="W64-9z-LeB"/>
                 <constraint firstItem="gua-Cp-vJN" firstAttribute="top" secondItem="UE0-av-upf" secondAttribute="bottom" constant="5" id="Y3V-dW-qbl"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gua-Cp-vJN" secondAttribute="trailing" id="ZUh-ZL-ntI"/>
-                <constraint firstItem="gua-Cp-vJN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bSH-WF-AN1"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gua-Cp-vJN" secondAttribute="trailing" constant="30" id="ZUh-ZL-ntI"/>
+                <constraint firstItem="gua-Cp-vJN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="bSH-WF-AN1"/>
                 <constraint firstItem="7pi-WW-Zb1" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="jgV-im-tWQ"/>
                 <constraint firstItem="UE0-av-upf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="pJf-nY-I5P"/>
-                <constraint firstItem="7pi-WW-Zb1" firstAttribute="top" secondItem="UE0-av-upf" secondAttribute="bottom" constant="5" id="q4X-Xz-3M6"/>
+                <constraint firstItem="7pi-WW-Zb1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="q4X-Xz-3M6"/>
             </constraints>
             <point key="canvasLocation" x="86.956521739130437" y="140.625"/>
         </view>
