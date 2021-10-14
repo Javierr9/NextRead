@@ -6,5 +6,6 @@ target 'NextRead' do
   use_frameworks!
 
   # Pods for NextRead
+pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git'
 
 end

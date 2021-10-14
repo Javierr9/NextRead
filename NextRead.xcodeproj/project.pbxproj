@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		050DA736529B23FCE12B0C68 /* Pods_NextRead.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A3781C11203667D4FBBCAB /* Pods_NextRead.framework */; };
 		3B12D9C826EDBD9200FA118E /* BookLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B12D9C626EDBD9200FA118E /* BookLibraryViewController.swift */; };
 		3B12D9C926EDBD9200FA118E /* BookLibraryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B12D9C726EDBD9200FA118E /* BookLibraryViewController.xib */; };
 		3B2629C226EFA9FC001F39A4 /* BooksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2629C026EFA9FC001F39A4 /* BooksTableViewCell.swift */; };
@@ -38,8 +39,6 @@
 		3B7F736926F9E77A001E7D33 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F736826F9E77A001E7D33 /* CoreDataManager.swift */; };
 		3B7F736E26F9FC85001E7D33 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F736C26F9FC85001E7D33 /* BookDetailViewController.swift */; };
 		3B7F736F26F9FC85001E7D33 /* BookDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B7F736D26F9FC85001E7D33 /* BookDetailViewController.xib */; };
-		3B8CFA8E271334A2008E3CA9 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8CFA8C271334A2008E3CA9 /* DetailViewController.swift */; };
-		3B8CFA8F271334A2008E3CA9 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B8CFA8D271334A2008E3CA9 /* DetailViewController.xib */; };
 		3B8CFA972713EE1F008E3CA9 /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8CFA962713EE1F008E3CA9 /* ExpandableLabel.swift */; };
 		3BE41A5526FC998B0004FD81 /* BookDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE41A5426FC998A0004FD81 /* BookDetailViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -77,12 +76,11 @@
 		3B7F736826F9E77A001E7D33 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		3B7F736C26F9FC85001E7D33 /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
 		3B7F736D26F9FC85001E7D33 /* BookDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookDetailViewController.xib; sourceTree = "<group>"; };
-		3B8CFA8C271334A2008E3CA9 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		3B8CFA8D271334A2008E3CA9 /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		3B8CFA962713EE1F008E3CA9 /* ExpandableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
 		3BE41A5426FC998A0004FD81 /* BookDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewModel.swift; sourceTree = "<group>"; };
 		711DB5409E3C58F7586B7685 /* Pods-NextRead.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NextRead.debug.xcconfig"; path = "Target Support Files/Pods-NextRead/Pods-NextRead.debug.xcconfig"; sourceTree = "<group>"; };
 		78B17AD8C2A32CF0B4EC0846 /* Pods-NextRead.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NextRead.release.xcconfig"; path = "Target Support Files/Pods-NextRead/Pods-NextRead.release.xcconfig"; sourceTree = "<group>"; };
+		C5A3781C11203667D4FBBCAB /* Pods_NextRead.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NextRead.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B2629C926EFB39E001F39A4 /* SDWebImage in Frameworks */,
+				050DA736529B23FCE12B0C68 /* Pods_NextRead.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,15 +269,6 @@
 			path = "Core Data";
 			sourceTree = "<group>";
 		};
-		3B8CFA89271333A6008E3CA9 /* Book Detail Scrollable */ = {
-			isa = PBXGroup;
-			children = (
-				3B8CFA8C271334A2008E3CA9 /* DetailViewController.swift */,
-				3B8CFA8D271334A2008E3CA9 /* DetailViewController.xib */,
-			);
-			path = "Book Detail Scrollable";
-			sourceTree = "<group>";
-		};
 		3B8CFA952713EDFE008E3CA9 /* Custom Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,7 +290,6 @@
 		3BCB8BDD26F8E410004F6659 /* Book Detail */ = {
 			isa = PBXGroup;
 			children = (
-				3B8CFA89271333A6008E3CA9 /* Book Detail Scrollable */,
 				3B6675892701EBB200B56F87 /* Book Description */,
 				3B7F736C26F9FC85001E7D33 /* BookDetailViewController.swift */,
 				3B7F736D26F9FC85001E7D33 /* BookDetailViewController.xib */,
@@ -320,6 +309,7 @@
 		A2A70D32B280D61E47C83A43 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5A3781C11203667D4FBBCAB /* Pods_NextRead.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -344,6 +334,7 @@
 				3B77A6B426EC874200DC3CFF /* Sources */,
 				3B77A6B526EC874200DC3CFF /* Frameworks */,
 				3B77A6B626EC874200DC3CFF /* Resources */,
+				3FD9AFDFC1DB04D2155FC18C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -404,7 +395,6 @@
 				3B12D9C926EDBD9200FA118E /* BookLibraryViewController.xib in Resources */,
 				3B77A6C826EC874300DC3CFF /* Assets.xcassets in Resources */,
 				3B7F736F26F9FC85001E7D33 /* BookDetailViewController.xib in Resources */,
-				3B8CFA8F271334A2008E3CA9 /* DetailViewController.xib in Resources */,
 				3B77A6D526ECE64900DC3CFF /* RootViewController.xib in Resources */,
 				3B2629C326EFA9FC001F39A4 /* BooksTableViewCell.xib in Resources */,
 			);
@@ -413,6 +403,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3FD9AFDFC1DB04D2155FC18C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NextRead/Pods-NextRead-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NextRead/Pods-NextRead-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NextRead/Pods-NextRead-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C77BE7EA07D9D1461098E1C6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -444,7 +451,6 @@
 			files = (
 				3B3F630E2709C732000F517D /* Extension+String.swift in Sources */,
 				3B2629DB26F063C9001F39A4 /* BookModel.swift in Sources */,
-				3B8CFA8E271334A2008E3CA9 /* DetailViewController.swift in Sources */,
 				3B3F63102709EB41000F517D /* BookRecommendationDataModel.swift in Sources */,
 				3B77A6C626EC874200DC3CFF /* NextRead.xcdatamodeld in Sources */,
 				3B7F736926F9E77A001E7D33 /* CoreDataManager.swift in Sources */,

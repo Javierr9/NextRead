@@ -13,6 +13,8 @@ enum SortBy{
 }
 
 
+
+
 class BookLibraryViewModel: NSObject{
     
     private var coreDataManager:CoreDataManager!
@@ -65,5 +67,6 @@ fileprivate extension BookLibraryViewModel{
         for book in books{
             thumbnailDatas?.append(ThumbnailDataModel(id: book.id, title: book.title, authors: book.authors, smallThumbnail: book.smallThumbnail, thumbnail: book.thumbnail))
         }
+        
     }
 }

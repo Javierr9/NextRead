@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SVProgressHUD
 
 
 class NetworkRequest: NSObject {
@@ -60,6 +61,7 @@ class NetworkRequest: NSObject {
                 print(String(describing: error))
             }
         }.resume()
+
     }
     
     func requestSimilarBookFromApiWith(bookId id: String, completion: @escaping([BookRecommendationDataModel])->()){

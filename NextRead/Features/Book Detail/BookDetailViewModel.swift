@@ -7,12 +7,15 @@
 
 import Foundation
 import CoreData
+import SVProgressHUD
+
 
 class BookDetailViewModel: NSObject{
     // This class will handle network service when the book is retrieved and also core data to send the books to favorite as well as to the recent searches
     
     private var coreDataManager: CoreDataManager!
     private var service: NetworkRequest!
+    
     
     private(set) var bookDetail: BookDataModel?{
         didSet{
@@ -40,6 +43,7 @@ class BookDetailViewModel: NSObject{
     func fetchBookFromApi(byId id: String){
         service.requestBookFromApiWith(bookId: id) { object in
             self.bookDetail = object
+            SVProgressHUD.dismiss()
         }
     }
     
@@ -79,6 +83,7 @@ fileprivate extension BookDetailViewModel{
                 self.recommendationThumbnailDatas = temporaryData
             }
         }
+        
         
     }
 }

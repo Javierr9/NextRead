@@ -8,6 +8,7 @@
 import UIKit
 import SDWebImage
 import MapKit
+import SVProgressHUD
 
 enum AddButtonStatus{
     case like
@@ -16,16 +17,16 @@ enum AddButtonStatus{
 
 //TODO: Scroll view on scroll close the bar, remake the font
 //TODO: Add more information near the view
-//TODO: Fix the scroll view
-//TODO: Clean the code this needs to be done within this week. 
+//TODO: Clean the code this needs to be done within this week.
+//TODO: Make the view only shown when the data is fully loaded mvvm
 class BookDetailViewController: UIViewController {
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var bookAuthorLabel: UILabel!
     @IBOutlet weak var bookRecommendationTableView: UITableView!
-//    @IBOutlet weak var readDescriptionButton: UIButton!
     @IBOutlet weak var bookDetailScrollView: UIScrollView!
     @IBOutlet weak var bookDescriptionLabel: ExpandableLabel!
+    @IBOutlet var bookDetailView: UIView!
     
     private var bookDetailViewModel = BookDetailViewModel()
     private var addButtonStatus: AddButtonStatus?
@@ -39,36 +40,28 @@ class BookDetailViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         
+        
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavigation()
+        SVProgressHUD.show()
+        getBook()
         bookRecommendationTableView.reloadData()
     }
     
-    @IBAction func openDescription(_ sender: Any) {
-        openBookDescription()
-    }
     
-}
-
-extension BookDetailViewController: UIScrollViewDelegate{
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if bookDescriptionLabel.isExpanded {
-//            let contentRect: CGRect = scrollView.subviews.reduce(into: .zero) { rect, view in
-//                rect = rect.union(view.frame)
-//            }
-//            scrollView.contentSize = contentRect.size
-        }
-    }
 }
 
 fileprivate extension BookDetailViewController{
     
     func setupView(){
-        getBook()
         setupNavigation()
         subscribeViewModel()
         setupTableView()
@@ -100,6 +93,7 @@ fileprivate extension BookDetailViewController{
     }
     
     func loadDetailsData(){
+        
         bookDetail = bookDetailViewModel.bookDetail
         
         setupBarButtonItem()
@@ -125,6 +119,7 @@ fileprivate extension BookDetailViewController{
         }
     }
     
+  
     
     func setupDetailView(){
         guard let bookDetail = bookDetail else {return}
@@ -137,7 +132,6 @@ fileprivate extension BookDetailViewController{
 
         bookAuthorLabel.text = authorsNameText != "" ? authorsNameText : "No authors"
         bookDescriptionLabel.text = bookDetail.volumeInfo?.description?.htmlToString
-        
     }
     
     
@@ -192,26 +186,6 @@ fileprivate extension BookDetailViewController{
         bookDetailViewModel.fetchBookRecommendations(usingId: bookId ?? "")
     }
     
-    func openBookDescription(){
-        let vc = BookDescriptionViewController()
-        
-        guard let description = bookDetail?.volumeInfo?.description else {return}
-        vc.bookDescription = description
-
-//        let navigation = UINavigationController(rootViewController: vc)
-//        self.navigationController?.present(navigation, animated: true, completion: nil)
-        
-        if let sheet = vc.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-//            sheet.detents = [.medium()]
-            sheet.largestUndimmedDetentIdentifier = .none
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.prefersEdgeAttachedInCompactHeight = true
-            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
-        }
-        
-        present(vc, animated:  true, completion: nil)
-    }
     
 }
 
