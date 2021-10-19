@@ -25,8 +25,8 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var bookAuthorLabel: UILabel!
     @IBOutlet weak var bookRecommendationTableView: UITableView!
     @IBOutlet weak var bookDetailScrollView: UIScrollView!
+    @IBOutlet weak var bookPageNumberLabel: UILabel!
     @IBOutlet weak var bookDescriptionLabel: ExpandableLabel!
-    @IBOutlet var bookDetailView: UIView!
     
     private var bookDetailViewModel = BookDetailViewModel()
     private var addButtonStatus: AddButtonStatus?
@@ -50,8 +50,8 @@ class BookDetailViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        setupNavigation()
         SVProgressHUD.show()
+        setupNavigation()
         getBook()
         bookRecommendationTableView.reloadData()
     }
@@ -126,12 +126,20 @@ fileprivate extension BookDetailViewController{
         if let imageURL = URL(string: bookDetail.volumeInfo?.imageLinks?.thumbnail ?? ""){
             bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: [], completed: nil)
         }
+        
         bookTitleLabel.text = bookDetail.volumeInfo?.title
-        guard let authorsName = bookDetail.volumeInfo?.authors else {return}
-        let authorsNameText = authorsName.joined(separator: ",")
-
-        bookAuthorLabel.text = authorsNameText != "" ? authorsNameText : "No authors"
-        bookDescriptionLabel.text = bookDetail.volumeInfo?.description?.htmlToString
+        if let authorsName = bookDetail.volumeInfo?.authors {
+            let authorsNameText = authorsName.joined(separator: ",")
+            bookAuthorLabel.text = authorsNameText != "" ? authorsNameText : "No author"
+        }
+        let bookDescription = bookDetail.volumeInfo?.description ?? "No description available"
+        bookDescriptionLabel.text = bookDescription.htmlToString
+        if let pageCount = bookDetail.volumeInfo?.pageCount {
+            bookPageNumberLabel.text = "\(pageCount) pages"
+        }else{
+            bookPageNumberLabel.text = "- pages"
+        }
+        
     }
     
     

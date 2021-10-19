@@ -20,14 +20,15 @@ struct BookDataModel: Codable {
         let id: String?
         let selfLink: String?
         let volumeInfo :VolumeInfo?
-    
+        
 }
 
 struct VolumeInfo: Codable{
     
-    let title, description: String?
+    let title, description, publishedDate: String?
     let authors: [String]?
     let imageLinks: ImageLinks?
+    let pageCount: Int?
     
 }
 
