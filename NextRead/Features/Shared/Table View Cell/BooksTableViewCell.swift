@@ -67,7 +67,7 @@ fileprivate extension BooksTableViewCell{
         
         bookTitleLabel.text = data.title
         guard let authorsName = data.authors else {return}
-        let authorsNameText = authorsName.joined(separator: ",")
+        let authorsNameText = authorsName.joined(separator: ", ")
         bookAuthorLabel.text = authorsNameText
     }
 }

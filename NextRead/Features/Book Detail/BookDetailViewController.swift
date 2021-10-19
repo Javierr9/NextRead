@@ -16,17 +16,22 @@ enum AddButtonStatus{
 }
 
 //TODO: Scroll view on scroll close the bar, remake the font
-//TODO: Add more information near the view
+//TODO: Add more information near the view add date to the view and also add it to the table view cell
 //TODO: Clean the code this needs to be done within this week.
-//TODO: Make the view only shown when the data is fully loaded mvvm
+//TODO: Link Description and books similar to this
+//TODO: Date change it to the year only
 class BookDetailViewController: UIViewController {
+    
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var bookAuthorLabel: UILabel!
     @IBOutlet weak var bookRecommendationTableView: UITableView!
     @IBOutlet weak var bookDetailScrollView: UIScrollView!
     @IBOutlet weak var bookPageNumberLabel: UILabel!
+    @IBOutlet weak var descriptionTitleLabel: UILabel!
+    @IBOutlet weak var similarBooksTitle: UILabel!
     @IBOutlet weak var bookDescriptionLabel: ExpandableLabel!
+    
     
     private var bookDetailViewModel = BookDetailViewModel()
     private var addButtonStatus: AddButtonStatus?
@@ -68,13 +73,18 @@ fileprivate extension BookDetailViewController{
         setupImageView()
         setupScrollView()
     }
-     
+
+    func setupTitleText(){
+        descriptionTitleLabel.text = "Description"
+        similarBooksTitle.text = "Books Similar to This"
+    }
+    
     func setupScrollView(){
         bookDetailScrollView.delegate = self
     }
     
     func setupImageView(){
-        bookImageView.layer.cornerRadius = 4
+        bookImageView.layer.cornerRadius = 10
         bookImageView.clipsToBounds = true
     }
     
@@ -128,18 +138,26 @@ fileprivate extension BookDetailViewController{
         }
         
         bookTitleLabel.text = bookDetail.volumeInfo?.title
+        
         if let authorsName = bookDetail.volumeInfo?.authors {
-            let authorsNameText = authorsName.joined(separator: ",")
+            let authorsNameText = authorsName.joined(separator: ", ")
             bookAuthorLabel.text = authorsNameText != "" ? authorsNameText : "No author"
         }
+        
         let bookDescription = bookDetail.volumeInfo?.description ?? "No description available"
         bookDescriptionLabel.text = bookDescription.htmlToString
+        var stringLabel = ""
         if let pageCount = bookDetail.volumeInfo?.pageCount {
-            bookPageNumberLabel.text = "\(pageCount) pages"
+            stringLabel = "\(pageCount) pages"
         }else{
-            bookPageNumberLabel.text = "- pages"
+            stringLabel = "- pages"
         }
         
+        if let yearPublished = bookDetail.volumeInfo?.publishedDate {
+            stringLabel = yearPublished + " • " + stringLabel
+        }
+        bookPageNumberLabel.text = stringLabel
+        setupTitleText()
     }
     
     

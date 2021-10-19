@@ -6,6 +6,8 @@
 //
 
 import UIKit
+//TODO: Change action title Default and Title why the action doesnt want to change?
+
 
 class BookLibraryViewController: UIViewController {
     
@@ -70,7 +72,8 @@ fileprivate extension BookLibraryViewController{
         
         sortButton.menu = UIMenu(children: [
             UIAction(title: "Recent", handler: sortByRecent),
-            UIAction(title: "Title ", handler: sortByTitle),
+            UIAction(title: "Title", handler: sortByTitle),
+            UIAction(title: "Other Action ", handler: sortByTitle),
         ])
         
         sortButton.changesSelectionAsPrimaryAction = true
@@ -98,8 +101,8 @@ fileprivate extension BookLibraryViewController{
         title = "Library"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.largeTitleTextAttributes = [.font:  UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle).withDesign(.serif)!.withSymbolicTraits(.traitBold)!, size: 34)]
-        navigationController?.navigationBar.titleTextAttributes = [.font:  UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle).withDesign(.serif)!.withSymbolicTraits(.traitBold)!, size: 17)]
+//        navigationController?.navigationBar.largeTitleTextAttributes = [.font:  UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle).withDesign(.serif)!.withSymbolicTraits(.traitBold)!, size: 34)]
+//        navigationController?.navigationBar.titleTextAttributes = [.font:  UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle).withDesign(.serif)!.withSymbolicTraits(.traitBold)!, size: 17)]
 
     }
     
