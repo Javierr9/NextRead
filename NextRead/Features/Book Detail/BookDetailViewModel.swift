@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 import SVProgressHUD
-
+//TODO: Fix author name something is not right
 
 class BookDetailViewModel: NSObject{
     // This class will handle network service when the book is retrieved and also core data to send the books to favorite as well as to the recent searches

@@ -57,7 +57,7 @@ fileprivate extension RootViewController{
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Titles"
+        searchController.searchBar.placeholder = "Titles and authors"
         
     }
     

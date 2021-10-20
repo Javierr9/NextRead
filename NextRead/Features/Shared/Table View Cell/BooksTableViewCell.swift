@@ -7,7 +7,7 @@
 
 import UIKit
 import SDWebImage
-
+//TODO: Reset variable before presenting new cell or just add nil coalescing 
 class BooksTableViewCell: UITableViewCell {
     
     @IBOutlet weak var bookImageView: UIImageView!

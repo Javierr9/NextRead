@@ -7,14 +7,11 @@
 
 import UIKit
 //TODO: Change action title Default and Title why the action doesnt want to change?
-
+//TODO: Whole view resize margin
 
 class BookLibraryViewController: UIViewController {
     
     @IBOutlet weak var booksTableView: UITableView!
-    @IBOutlet weak var booksCollectionView: UICollectionView!
-    @IBOutlet weak var changeLayoutButton: UIButton!
-    @IBOutlet weak var sortButton: UIButton!
     
     private let bookLibraryViewModel = BookLibraryViewModel()
     private var thumbnailDatas:[ThumbnailDataModel] = []
@@ -39,19 +36,6 @@ class BookLibraryViewController: UIViewController {
         bookLibraryViewModel.getFavoritedBooks()
     }
     
-    @IBAction func toggleTableViewPressed(_ sender: UIButton) {
-        if sender.isSelected{
-            booksTableView.isHidden = true
-            booksCollectionView.isHidden = false
-        }else{
-            booksTableView.isHidden = false
-            booksCollectionView.isHidden = true
-        }
-    }
-    
-    @IBAction func sortMenuOpened(_ sender: Any) {
-        presentSortModal()
-    }
     
 }
 
@@ -61,33 +45,6 @@ fileprivate extension BookLibraryViewController{
         subscribeViewModel()
         setupNavigation()
         setupTableView()
-        setupCollectionView()
-        setupButton()
-    }
-    
-    
-    func setupButton(){
-        changeLayoutButton.setTitle("", for: .normal)
-        changeLayoutButton.changesSelectionAsPrimaryAction = true
-        
-        sortButton.menu = UIMenu(children: [
-            UIAction(title: "Recent", handler: sortByRecent),
-            UIAction(title: "Title", handler: sortByTitle),
-            UIAction(title: "Other Action ", handler: sortByTitle),
-        ])
-        
-        sortButton.changesSelectionAsPrimaryAction = true
-        sortButton.showsMenuAsPrimaryAction = true
-    }
-    
-    
-    
-    func setupCollectionView(){
-        booksCollectionView.register(BooksCollectionViewCell.getNib(), forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
-        booksCollectionView.dataSource = self
-        booksCollectionView.delegate = self
-      
-        
     }
     
     func setupTableView(){
@@ -116,12 +73,7 @@ fileprivate extension BookLibraryViewController{
         thumbnailDatas = bookLibraryViewModel.thumbnailDatas ?? []
         DispatchQueue.main.async {
             self.booksTableView.reloadData()
-            self.booksCollectionView.reloadData()
         }
-    }
-    
-    func presentSortModal(){
-        
     }
     
     
@@ -184,55 +136,9 @@ extension BookLibraryViewController: UITableViewDelegate, UITableViewDataSource{
         if indexPath.row == 0{
             return 44
         }else{
-            return 106
+            return 108
         }
     }
-}
-
-extension BookLibraryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return thumbnailDatas.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BooksCollectionViewCell.identifier, for: indexPath) as! BooksCollectionViewCell
-        
-        cell.thumbnailData = thumbnailDatas[indexPath.row]
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = BookDetailViewController()
-        viewController.bookId = thumbnailDatas[indexPath.row].id
-        self.navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let yourWidth = (collectionView.bounds.width/2.0) - 15
-        let yourHeight = yourWidth * 1.46
-        
-        return CGSize(width: yourWidth, height: yourHeight)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets.zero
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 15
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 30
-    }
-    
 }
 
 

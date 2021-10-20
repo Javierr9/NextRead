@@ -14,9 +14,6 @@ enum AddButtonStatus{
     case like
     case unlike
 }
-
-//TODO: Scroll view on scroll close the bar, remake the font
-//TODO: Add more information near the view add date to the view and also add it to the table view cell
 //TODO: Clean the code this needs to be done within this week.
 //TODO: Link Description and books similar to this
 //TODO: Date change it to the year only
@@ -30,8 +27,8 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var bookPageNumberLabel: UILabel!
     @IBOutlet weak var descriptionTitleLabel: UILabel!
     @IBOutlet weak var similarBooksTitle: UILabel!
+    @IBOutlet weak var bookPublishedDateLabel: UILabel!
     @IBOutlet weak var bookDescriptionLabel: ExpandableLabel!
-    
     
     private var bookDetailViewModel = BookDetailViewModel()
     private var addButtonStatus: AddButtonStatus?
@@ -47,12 +44,6 @@ class BookDetailViewController: UIViewController {
         
         
     }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         SVProgressHUD.show()
@@ -146,17 +137,16 @@ fileprivate extension BookDetailViewController{
         
         let bookDescription = bookDetail.volumeInfo?.description ?? "No description available"
         bookDescriptionLabel.text = bookDescription.htmlToString
-        var stringLabel = ""
+    
         if let pageCount = bookDetail.volumeInfo?.pageCount {
-            stringLabel = "\(pageCount) pages"
+            bookPageNumberLabel.text = "\(pageCount) pages"
         }else{
-            stringLabel = "- pages"
+            bookPageNumberLabel.text = "- Pages"
         }
         
         if let yearPublished = bookDetail.volumeInfo?.publishedDate {
-            stringLabel = yearPublished + " • " + stringLabel
+            bookPublishedDateLabel.text = "\(yearPublished.prefix(4))"
         }
-        bookPageNumberLabel.text = stringLabel
         setupTitleText()
     }
     
