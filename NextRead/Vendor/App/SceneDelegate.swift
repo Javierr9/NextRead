@@ -21,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
+        window.frame = UIScreen.main.bounds
         nextReadNavigationController = UINavigationController.init(rootViewController: RootViewController())
         bookLibraryNavigationController = UINavigationController.init(rootViewController: BookLibraryViewController())
         

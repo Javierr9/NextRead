@@ -8,23 +8,26 @@
 import UIKit
 import SDWebImage
 import MapKit
+import SVProgressHUD
 
 enum AddButtonStatus{
     case like
     case unlike
 }
-
-//TODO: Scroll view on scroll close the bar, remake the font
-//TODO: Add more information near the view
-//TODO: Fix the scroll view
-//TODO: Clean the code this needs to be done within this week. 
+//TODO: Clean the code this needs to be done within this week.
+//TODO: Link Description and books similar to this
+//TODO: Date change it to the year only
 class BookDetailViewController: UIViewController {
+    
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var bookAuthorLabel: UILabel!
     @IBOutlet weak var bookRecommendationTableView: UITableView!
-//    @IBOutlet weak var readDescriptionButton: UIButton!
     @IBOutlet weak var bookDetailScrollView: UIScrollView!
+    @IBOutlet weak var bookPageNumberLabel: UILabel!
+    @IBOutlet weak var descriptionTitleLabel: UILabel!
+    @IBOutlet weak var similarBooksTitle: UILabel!
+    @IBOutlet weak var bookPublishedDateLabel: UILabel!
     @IBOutlet weak var bookDescriptionLabel: ExpandableLabel!
     
     private var bookDetailViewModel = BookDetailViewModel()
@@ -39,49 +42,40 @@ class BookDetailViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         
+        
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
+        SVProgressHUD.show()
         setupNavigation()
+        getBook()
         bookRecommendationTableView.reloadData()
     }
     
-    @IBAction func openDescription(_ sender: Any) {
-        openBookDescription()
-    }
     
-}
-
-extension BookDetailViewController: UIScrollViewDelegate{
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if bookDescriptionLabel.isExpanded {
-//            let contentRect: CGRect = scrollView.subviews.reduce(into: .zero) { rect, view in
-//                rect = rect.union(view.frame)
-//            }
-//            scrollView.contentSize = contentRect.size
-        }
-    }
 }
 
 fileprivate extension BookDetailViewController{
     
     func setupView(){
-        getBook()
         setupNavigation()
         subscribeViewModel()
         setupTableView()
         setupImageView()
         setupScrollView()
     }
-     
+
+    func setupTitleText(){
+        descriptionTitleLabel.text = "Description"
+        similarBooksTitle.text = "Books Similar to This"
+    }
+    
     func setupScrollView(){
         bookDetailScrollView.delegate = self
     }
     
     func setupImageView(){
-        bookImageView.layer.cornerRadius = 4
+        bookImageView.layer.cornerRadius = 10
         bookImageView.clipsToBounds = true
     }
     
@@ -100,6 +94,7 @@ fileprivate extension BookDetailViewController{
     }
     
     func loadDetailsData(){
+        
         bookDetail = bookDetailViewModel.bookDetail
         
         setupBarButtonItem()
@@ -125,19 +120,34 @@ fileprivate extension BookDetailViewController{
         }
     }
     
+  
     
     func setupDetailView(){
         guard let bookDetail = bookDetail else {return}
         if let imageURL = URL(string: bookDetail.volumeInfo?.imageLinks?.thumbnail ?? ""){
             bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: [], completed: nil)
         }
-        bookTitleLabel.text = bookDetail.volumeInfo?.title
-        guard let authorsName = bookDetail.volumeInfo?.authors else {return}
-        let authorsNameText = authorsName.joined(separator: ",")
-
-        bookAuthorLabel.text = authorsNameText != "" ? authorsNameText : "No authors"
-        bookDescriptionLabel.text = bookDetail.volumeInfo?.description?.htmlToString
         
+        bookTitleLabel.text = bookDetail.volumeInfo?.title
+        
+        if let authorsName = bookDetail.volumeInfo?.authors {
+            let authorsNameText = authorsName.joined(separator: ", ")
+            bookAuthorLabel.text = authorsNameText != "" ? authorsNameText : "No author"
+        }
+        
+        let bookDescription = bookDetail.volumeInfo?.description ?? "No description available"
+        bookDescriptionLabel.text = bookDescription.htmlToString
+    
+        if let pageCount = bookDetail.volumeInfo?.pageCount {
+            bookPageNumberLabel.text = "\(pageCount) pages"
+        }else{
+            bookPageNumberLabel.text = "- Pages"
+        }
+        
+        if let yearPublished = bookDetail.volumeInfo?.publishedDate {
+            bookPublishedDateLabel.text = "\(yearPublished.prefix(4))"
+        }
+        setupTitleText()
     }
     
     
@@ -192,26 +202,6 @@ fileprivate extension BookDetailViewController{
         bookDetailViewModel.fetchBookRecommendations(usingId: bookId ?? "")
     }
     
-    func openBookDescription(){
-        let vc = BookDescriptionViewController()
-        
-        guard let description = bookDetail?.volumeInfo?.description else {return}
-        vc.bookDescription = description
-
-//        let navigation = UINavigationController(rootViewController: vc)
-//        self.navigationController?.present(navigation, animated: true, completion: nil)
-        
-        if let sheet = vc.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-//            sheet.detents = [.medium()]
-            sheet.largestUndimmedDetentIdentifier = .none
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.prefersEdgeAttachedInCompactHeight = true
-            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
-        }
-        
-        present(vc, animated:  true, completion: nil)
-    }
     
 }
 

@@ -29,18 +29,18 @@ class ExpandableLabel :UILabel {
         let theNumberOfLines = numberOfLinesInLabel(yourString: self.text ?? "", labelWidth: self.frame.width, labelHeight: self.frame.height, font: self.font)
         
         let height = self.frame.height
-        self.numberOfLines =  self.isExpanded ? 0 : 3
+        self.numberOfLines =  self.isExpanded ? 0 : 2
         
-        if theNumberOfLines > 3{
+        if theNumberOfLines > 2{
             
-            self.numberOfLines = 3
+            self.numberOfLines = 2
             
-            let button = UIButton(frame: CGRect(x: 0, y: height+15, width: 70, height: 15))
+            let button = UIButton(frame: CGRect(x: 0, y: height+16, width: 70, height: 16))
             button.tag = 9090
             button.frame = self.frame
-            button.frame.origin.y =  self.frame.origin.y  +  self.frame.size.height + 25
+            button.frame.origin.y =  self.frame.origin.y  +  self.frame.size.height
             button.setTitle("Read more", for: .normal)
-            button.titleLabel?.font = button.titleLabel?.font.withSize(17)
+            button.titleLabel?.font = button.titleLabel?.font.withSize(15)
             button.backgroundColor = .clear
             button.setTitleColor(UIColor.tintColor, for: .normal)
             button.addTarget(self, action: #selector(ExpandableLabel.buttonTapped(sender:)), for: .touchUpInside)
@@ -49,14 +49,13 @@ class ExpandableLabel :UILabel {
             button.setTitle("Read less", for: .selected)
             button.isSelected = self.isExpanded
             button.translatesAutoresizingMaskIntoConstraints = false
-            
             NSLayoutConstraint.activate([
                 button.leadingAnchor.constraint(equalTo: self.leadingAnchor),
                 button.topAnchor.constraint(equalTo:  self.bottomAnchor, constant: 0)
                 ])
         }else{
             
-            self.numberOfLines = 3
+            self.numberOfLines = 2
         }
     }
     
@@ -88,7 +87,7 @@ class ExpandableLabel :UILabel {
         self.isExpanded = !isExpanded
         sender.isSelected = self.isExpanded
         
-        self.numberOfLines =  sender.isSelected ? 0 : 3
+        self.numberOfLines =  sender.isSelected ? 0 : 2
         
         self.layoutIfNeeded()
         

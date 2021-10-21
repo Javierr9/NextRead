@@ -51,7 +51,7 @@ fileprivate extension SettingsTableViewCell{
     
     func setupButton(){
         sortButton.menu = UIMenu(children: [
-            UIAction(title: "Recent", handler: {_ in
+            UIAction(title: "Default", handler: {_ in
                 self.updateBookListRecent?()
             } ),
             UIAction(title: "Title ", handler: {_ in

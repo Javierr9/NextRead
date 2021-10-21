@@ -7,7 +7,7 @@
 
 import UIKit
 import SDWebImage
-
+//TODO: Reset variable before presenting new cell or just add nil coalescing 
 class BooksTableViewCell: UITableViewCell {
     
     @IBOutlet weak var bookImageView: UIImageView!
@@ -67,7 +67,7 @@ fileprivate extension BooksTableViewCell{
         
         bookTitleLabel.text = data.title
         guard let authorsName = data.authors else {return}
-        let authorsNameText = authorsName.joined(separator: ",")
+        let authorsNameText = authorsName.joined(separator: ", ")
         bookAuthorLabel.text = authorsNameText
     }
 }

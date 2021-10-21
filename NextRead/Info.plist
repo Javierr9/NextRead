@@ -55,7 +55,7 @@
 		<true/>
 	</dict>
 	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
+	<string></string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
