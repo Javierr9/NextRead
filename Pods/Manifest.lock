@@ -1,10 +1,16 @@
 PODS:
+  - FLEX (4.6.0)
   - SVProgressHUD (2.2.6):
     - SVProgressHUD/Core (= 2.2.6)
   - SVProgressHUD/Core (2.2.6)
 
 DEPENDENCIES:
+  - FLEX
   - SVProgressHUD (from `https://github.com/SVProgressHUD/SVProgressHUD.git`)
+
+SPEC REPOS:
+  trunk:
+    - FLEX
 
 EXTERNAL SOURCES:
   SVProgressHUD:
@@ -16,8 +22,9 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SVProgressHUD/SVProgressHUD.git
 
 SPEC CHECKSUMS:
+  FLEX: 6223ad3d853fb6177a6ab1cda85f372a72768da8
   SVProgressHUD: de812b4f0e1d65358f0064416473174ae619843f
 
-PODFILE CHECKSUM: ea78e2e2ed31ca275fbb10733f3e7c677485e16b
+PODFILE CHECKSUM: 7d066bc9abe276006d8c37f395bc7173f34dfe92
 
 COCOAPODS: 1.11.2

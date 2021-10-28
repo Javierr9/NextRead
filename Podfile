@@ -7,5 +7,6 @@ target 'NextRead' do
 
   # Pods for NextRead
 pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git'
+pod 'FLEX', :configurations => ['Debug']
 
 end

@@ -7,7 +7,6 @@
 
 import UIKit
 //TODO: Change action title Default and Title why the action doesnt want to change?
-//TODO: Whole view resize margin
 
 class BookLibraryViewController: UIViewController {
     

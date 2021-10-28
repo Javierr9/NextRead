@@ -16,7 +16,6 @@ enum AddButtonStatus{
 }
 //TODO: Clean the code this needs to be done within this week.
 //TODO: Link Description and books similar to this
-//TODO: Date change it to the year only
 class BookDetailViewController: UIViewController {
     
     @IBOutlet weak var bookImageView: UIImageView!
