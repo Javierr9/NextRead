@@ -7,7 +7,6 @@
 
 import Foundation
 
-struct BookRecommendationDataModel: Codable{
+struct BookRecommendationDataModel: Codable {
     let id: String?
 }
-

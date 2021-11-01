@@ -7,20 +7,17 @@
 
 import UIKit
 
-protocol SettingsTableViewDelegate{
+protocol SettingsTableViewDelegate {
     func sortBookByRecentProtocolFunction()
-    
 }
 
-
 class SettingsTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var sortButton: UIButton!
+    @IBOutlet var sortButton: UIButton!
     static var identifier = "SettingsTableViewCell"
-    
-    var updateBookListRecent: (() -> ())?
+
+    var updateBookListRecent: (() -> Void)?
     var delegate: SettingsTableViewDelegate?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setupButton()
@@ -31,34 +28,27 @@ class SettingsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }
 
-extension SettingsTableViewCell{
-    
-    static func getNib() -> UINib{
-        
+extension SettingsTableViewCell {
+    static func getNib() -> UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
-    
-    private func sortBookByRecent(){
-        
-    }
-    
+
+    private func sortBookByRecent() {}
 }
 
-fileprivate extension SettingsTableViewCell{
-    
-    func setupButton(){
+private extension SettingsTableViewCell {
+    func setupButton() {
         sortButton.menu = UIMenu(children: [
-            UIAction(title: "Default", handler: {_ in
+            UIAction(title: "Default", handler: { _ in
                 self.updateBookListRecent?()
-            } ),
-            UIAction(title: "Title ", handler: {_ in
+            }),
+            UIAction(title: "Title ", handler: { _ in
                 self.delegate?.sortBookByRecentProtocolFunction()
             }),
         ])
-        
+
         sortButton.changesSelectionAsPrimaryAction = true
         sortButton.showsMenuAsPrimaryAction = true
     }

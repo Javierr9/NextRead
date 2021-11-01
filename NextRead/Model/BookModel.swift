@@ -8,32 +8,26 @@
 import Foundation
 
 struct BookModel: Codable {
-    
     let data: [BookDataModel]?
-    
-    enum CodingKeys: String, CodingKey{
+
+    enum CodingKeys: String, CodingKey {
         case data = "items"
     }
 }
 
 struct BookDataModel: Codable {
-        let id: String?
-        let selfLink: String?
-        let volumeInfo :VolumeInfo?
-        
+    let id: String?
+    let selfLink: String?
+    let volumeInfo: VolumeInfo?
 }
 
-struct VolumeInfo: Codable{
-    
+struct VolumeInfo: Codable {
     let title, description, publishedDate: String?
     let authors: [String]?
     let imageLinks: ImageLinks?
     let pageCount: Int?
-    
 }
 
-struct ImageLinks: Codable{
+struct ImageLinks: Codable {
     let smallThumbnail, thumbnail: String?
 }
-
-

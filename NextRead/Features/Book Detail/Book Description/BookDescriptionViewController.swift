@@ -8,11 +8,10 @@
 import UIKit
 
 class BookDescriptionViewController: UIViewController {
+    @IBOutlet var bookDescriptionTextView: UITextView!
 
-    @IBOutlet weak var bookDescriptionTextView: UITextView!
-    
     var bookDescription: String?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigation()
@@ -20,33 +19,30 @@ class BookDescriptionViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    
     /*
-    // MARK: - Navigation
+     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         // Get the new view controller using segue.destination.
+         // Pass the selected object to the new view controller.
+     }
+     */
 }
 
-fileprivate extension BookDescriptionViewController{
-    
-    func setNavigation(){
+private extension BookDescriptionViewController {
+    func setNavigation() {
         navigationController?.isNavigationBarHidden = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissController))
     }
-    
+
     @objc
-    func dismissController(){
-        self.dismiss(animated: true, completion: nil)
+    func dismissController() {
+        dismiss(animated: true, completion: nil)
     }
-    
-    func setBookDescription(){
-        guard let description = bookDescription else {return}
+
+    func setBookDescription() {
+        guard let description = bookDescription else { return }
         bookDescriptionTextView.text = description.htmlToString
     }
 }
