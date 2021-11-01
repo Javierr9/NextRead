@@ -15,8 +15,6 @@ enum AddButtonStatus {
     case unlike
 }
 
-// TODO: Clean the code this needs to be done within this week.
-// TODO: Link Description and books similar to this
 class BookDetailViewController: UIViewController {
     @IBOutlet var bookImageView: UIImageView!
     @IBOutlet var bookTitleLabel: UILabel!
@@ -56,6 +54,8 @@ private extension BookDetailViewController {
         setupTableView()
         setupImageView()
         setupScrollView()
+        // TODO: If you want to get the books immediately on view did load uncomment this below
+//        bookDetailTapped()
     }
 
     func setupTitleText() {
@@ -111,27 +111,32 @@ private extension BookDetailViewController {
 
     func setupDetailView() {
         guard let bookDetail = bookDetail else { return }
-        if let imageURL = URL(string: bookDetail.volumeInfo?.imageLinks?.thumbnail ?? "") {
-            bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: [], completed: nil)
+        guard let volumeInfo = bookDetail.volumeInfo else { return }
+        if let thumbnailData = volumeInfo.imageLinks?.thumbnail {
+            if let imageURL = URL(string: thumbnailData) {
+                bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: [], completed: nil)
+            }
+        } else {
+            bookImageView.image = #imageLiteral(resourceName: "BookCover")
         }
 
-        bookTitleLabel.text = bookDetail.volumeInfo?.title
+        bookTitleLabel.text = volumeInfo.title
 
-        if let authorsName = bookDetail.volumeInfo?.authors {
+        if let authorsName = volumeInfo.authors {
             let authorsNameText = authorsName.joined(separator: ", ")
             bookAuthorLabel.text = authorsNameText != "" ? authorsNameText : "No author"
         }
 
-        let bookDescription = bookDetail.volumeInfo?.description ?? "No description available"
+        let bookDescription = volumeInfo.description ?? "No description available"
         bookDescriptionLabel.text = bookDescription.htmlToString
 
-        if let pageCount = bookDetail.volumeInfo?.pageCount {
+        if let pageCount = volumeInfo.pageCount {
             bookPageNumberLabel.text = "\(pageCount) pages"
         } else {
             bookPageNumberLabel.text = "- Pages"
         }
 
-        if let yearPublished = bookDetail.volumeInfo?.publishedDate {
+        if let yearPublished = volumeInfo.publishedDate {
             bookPublishedDateLabel.text = "\(yearPublished.prefix(4))"
         }
         setupTitleText()
@@ -160,9 +165,10 @@ private extension BookDetailViewController {
         DispatchQueue.main.async {
             switch self.addButtonStatus {
             case .like:
-                self.navigationItem.rightBarButtonItems = [likeButton, infoButton]
+//                self.navigationItem.rightBarButtonItems = [likeButton, infoButton]
+                self.navigationItem.rightBarButtonItems = [likeButton]
             default:
-                self.navigationItem.rightBarButtonItems = [unlikeButton, infoButton]
+                self.navigationItem.rightBarButtonItems = [unlikeButton]
             }
         }
     }

@@ -7,7 +7,7 @@
 
 import SDWebImage
 import UIKit
-// TODO: Reset variable before presenting new cell or just add nil coalescing
+
 class BooksTableViewCell: UITableViewCell {
     @IBOutlet var bookImageView: UIImageView!
     @IBOutlet var bookTitleLabel: UILabel!
@@ -51,11 +51,16 @@ private extension BooksTableViewCell {
     }
 
     func setCellData() {
+        
         guard let data = thumbnailData else { return }
-        guard let thumbnailImage = data.smallThumbnail else { return }
-        if let imageURL = URL(string: thumbnailImage) {
-            bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: [], completed: nil)
+        if let thumbnailImage = data.smallThumbnail {
+            if let imageURL = URL(string: thumbnailImage) {
+                bookImageView.sd_setImage(with: imageURL, placeholderImage: #imageLiteral(resourceName: "BookCover"), options: [], completed: nil)
+            }
+        }else{
+            bookImageView.image =  #imageLiteral(resourceName: "BookCover")
         }
+     
 
         bookTitleLabel.text = data.title
         guard let authorsName = data.authors else { return }

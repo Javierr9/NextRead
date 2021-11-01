@@ -6,7 +6,6 @@
 //
 
 import UIKit
-// TODO: Change action title Default and Title why the action doesnt want to change?
 
 class BookLibraryViewController: UIViewController {
     @IBOutlet var booksTableView: UITableView!
