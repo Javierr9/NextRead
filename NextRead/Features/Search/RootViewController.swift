@@ -57,7 +57,7 @@ private extension RootViewController {
 
     func bindData() {
         thumbnailDatas = bookViewModel.thumbnailDatas ?? []
-        
+
         DispatchQueue.main.async {
             self.searchResultTableView.reloadData()
         }

@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+// TODO: Recent searches
+// TODO: Hide tableview if the book has no description
 class BookLibraryViewController: UIViewController {
     @IBOutlet var booksTableView: UITableView!
 
@@ -118,7 +119,6 @@ extension BookLibraryViewController: UITableViewDelegate, UITableViewDataSource 
 
 extension BookLibraryViewController: SettingsTableViewDelegate {
     func sortBookByRecentProtocolFunction() {
-        print("protocol function working")
         bookLibraryViewModel.getFavoritedBooks(sortBy: .alphabet)
     }
 }

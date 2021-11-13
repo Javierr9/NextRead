@@ -17,7 +17,6 @@ public extension Book {
     @NSManaged var authors: [String]?
     @NSManaged var id: String?
     @NSManaged var isFavorite: Bool
-    @NSManaged var isRecent: Bool
     @NSManaged var smallThumbnail: String?
     @NSManaged var title: String?
     @NSManaged var thumbnail: String?

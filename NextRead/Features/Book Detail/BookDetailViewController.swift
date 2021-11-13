@@ -39,23 +39,27 @@ class BookDetailViewController: UIViewController {
         setupView()
     }
 
+//    override func viewWillAppear(_: Bool) {
+//        SVProgressHUD.show()
+//        setupNavigation()
+//        getBook()
+//        bookRecommendationTableView.reloadData()
+//    }
     override func viewWillAppear(_: Bool) {
-        SVProgressHUD.show()
         setupNavigation()
-        getBook()
-        bookRecommendationTableView.reloadData()
     }
 }
 
 private extension BookDetailViewController {
     func setupView() {
+        SVProgressHUD.show()
+        getBook()
         setupNavigation()
         subscribeViewModel()
         setupTableView()
         setupImageView()
         setupScrollView()
-        // TODO: If you want to get the books immediately on view did load uncomment this below
-//        bookDetailTapped()
+        getRecommendations()
     }
 
     func setupTitleText() {
@@ -150,7 +154,7 @@ private extension BookDetailViewController {
     }
 
     func setupBarButtonItem() {
-        let infoButton = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(bookDetailTapped))
+//        let infoButton = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(getRecommendations))
         let likeButton = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(addTapped))
         let unlikeButton = UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"), style: .plain, target: self, action: #selector(addTapped))
 
@@ -188,7 +192,7 @@ private extension BookDetailViewController {
     }
 
     @objc
-    func bookDetailTapped() {
+    func getRecommendations() {
         bookDetailViewModel.fetchBookRecommendations(usingId: bookId ?? "")
     }
 }
