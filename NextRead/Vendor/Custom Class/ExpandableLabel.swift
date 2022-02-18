@@ -36,14 +36,14 @@ class ExpandableLabel: UILabel {
             button.tag = 9090
             button.frame = frame
             button.frame.origin.y = frame.origin.y + frame.size.height
-            button.setTitle("Read more", for: .normal)
+            button.setTitle("Show more", for: .normal)
             button.titleLabel?.font = button.titleLabel?.font.withSize(15)
             button.backgroundColor = .clear
             button.setTitleColor(UIColor.tintColor, for: .normal)
             button.addTarget(self, action: #selector(ExpandableLabel.buttonTapped(sender:)), for: .touchUpInside)
             superview?.addSubview(button)
             superview?.bringSubviewToFront(button)
-            button.setTitle("Read less", for: .selected)
+            button.setTitle("Show less", for: .selected)
             button.isSelected = isExpanded
             button.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([

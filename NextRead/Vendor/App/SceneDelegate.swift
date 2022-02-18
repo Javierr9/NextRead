@@ -30,9 +30,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         bookLibraryNavigationController?.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "books.vertical.fill"), tag: 1)
 
         tabBarController.viewControllers = [nextReadNavigationController!, bookLibraryNavigationController!]
-
+        
         window.rootViewController = tabBarController
         self.window = window
+        window.tintColor = .systemRed
         window.makeKeyAndVisible()
     }
 
